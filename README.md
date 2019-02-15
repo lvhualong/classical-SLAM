@@ -1,6 +1,15 @@
 # classical-SLAM
 一些经典的SLAM算法学习并注释的版本
 
+## Google cartographer
+ 
+> Cartographer is a system that provides real-time simultaneous localization and mapping (SLAM) in 2D and 3D across multiple platforms and sensor configurations.  
+- [cartographer](https://github.com/googlecartographer/cartographer)  
+- [cartographer-ROS](https://github.com/googlecartographer/cartographer_ros)  
+- [cartographer-README](https://google-cartographer-ros.readthedocs.io/en/latest/algo_walkthrough.html)
+![cartographer框架](https://raw.githubusercontent.com/googlecartographer/cartographer/master/docs/source/high_level_system_overview.png)
+
+
 
 ## ORB-SLAM 框架
 
@@ -20,3 +29,11 @@
 >[论文](https://arxiv.org/abs/1809.08379v1) 
 [代码](https://github.com/ivipsourcecode/DS-SLAM)  
 >特点：在ORB-SLAM2with_pointcloud_map的基础上，增加了SegNet(pixel-wise semantic segmentation based on caffe in real-time)
+
+
+## VINS 框架
+
+- VINS-Fusion  
+> 
+[VINS-Fusion代码](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion)
+VINS-Fusion is an optimization-based multi-sensor state estimator, which achieves accurate self-localization for autonomous applications (drones, cars, and AR/VR). VINS-Fusion is an extension of VINS-Mono, which supports multiple visual-inertial sensor types (mono camera + IMU, stereo cameras + IMU, even stereo cameras only). We also show a toy example of fusing VINS with GPS
