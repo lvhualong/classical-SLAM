@@ -37,3 +37,11 @@
 > 
 [VINS-Fusion代码](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion)
 VINS-Fusion is an optimization-based multi-sensor state estimator, which achieves accurate self-localization for autonomous applications (drones, cars, and AR/VR). VINS-Fusion is an extension of VINS-Mono, which supports multiple visual-inertial sensor types (mono camera + IMU, stereo cameras + IMU, even stereo cameras only). We also show a toy example of fusing VINS with GPS
+
+
+## MSCKF 框架
+
+-  [MSCKF_VIO  EKF-based VIO approach](https://github.com/KumarRobotics/msckf_vio/blob/master/README.md)  
+>  The MSCKF_VIO package is a stereo version of MSCKF. The software takes in synchronized stereo images and IMU messages and generates real-time 6DOF pose estimation of the IMU frame.
+
+- [SR-ISWF  -an extension of MSCKF]
