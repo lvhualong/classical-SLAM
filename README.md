@@ -1,5 +1,7 @@
 # classical-SLAM
 一些经典的SLAM算法学习并注释的版本
+(master branch 包含所有package, 每次在new　分支新建，然后checkout到向对应的分支)
+
 
 ## Google cartographer
  
