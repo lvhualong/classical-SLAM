@@ -335,7 +335,7 @@ void Tracking::FirstInitialization()
         mLastFrame = Frame(mCurrentFrame);
         mvbPrevMatched.resize(mCurrentFrame.mvKeysUn.size());
         for (size_t i = 0; i < mCurrentFrame.mvKeysUn.size(); i++)
-            mvbPrevMatched[i] = mCurrentFrame.mvKeysUn[i].pt;//提取的像素点，关键点
+            mvbPrevMatched[i] = mCurrentFrame.mvKeysUn[i].pt; //提取的像素点，关键点
 
         if (mpInitializer)
             delete mpInitializer;
