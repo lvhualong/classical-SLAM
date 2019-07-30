@@ -1,0 +1,13 @@
+<launch>
+
+    <node pkg="rosbag" type="play" name="play" args="--pause  /home/ubuntu/dataset/EuRoc/MH_01_easy.bag" output="screen" >
+	<!-- <remap from="/cam0/image_raw" to="/camera/left/image_raw" /> 
+	<remap from="/cam1/image_raw" to="/camera/right/image_raw" />  -->
+   </node>
+    <!-- rviz -->
+    <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find vins_fusion)/../config/vins_rviz.rviz" />
+
+    <node name="vins_node" pkg="vins_fusion" type="vins_node" output="screen" 
+    args="$(find vins_fusion)/../config/euroc/euroc_stereo_imu_config.yaml" />
+
+</launch>

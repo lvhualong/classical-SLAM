@@ -1,0 +1,15 @@
+%YAML:1.0
+---
+model_type: KANNALA_BRANDT
+camera_name: kannala-brandt
+image_width: 640
+image_height: 400
+projection_parameters:
+   k2: 5.2071286781761361e-01
+   k3: 3.4305394820252644e-01
+   k4: -8.0322873130290884e-01
+   k5: 3.5876405027739594e-01
+   mu: 2.0270177396914141e+02
+   mv: 2.0260825236839869e+02
+   u0: 3.2421812049884187e+02
+   v0: 2.0194908842565758e+02

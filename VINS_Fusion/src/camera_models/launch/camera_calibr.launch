@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="ns" default="mynteye" />
+  <!--subscriber image topic: 
+    mynteye-s:[left/image_raw, right/image_raw]
+    mynteye-d:[left/image_color, right/image_color]
+    mynteye-d:[left/image_raw, right/image_raw] 
+  -->
+  <arg name="left_topic" default="left/image_color" />
+  <arg name="right_topic" default="right/image_color"  />
+
+  <arg name="is_left_camera" default="true" />
+
+  <arg name="boradsize_width" default="11" />
+  <arg name="boradsize_height" default="7" />
+  <!--unit: meters-->
+  <arg name="square_size" default="0.036" />
+
+  <!--support: pinhole, mei, kannala-brandt-->
+  <arg name="camera_model" default="kannala-brandt" />
+
+  <arg name="use_opencv" default="true" />
+  <arg name="calibrate_nr" default="11" />
+  <!--save path including: [mynteye-s, mynteye-d, mynteye-avarta]-->
+  <arg name="mynteye" default="mynteye-d" />
+  <arg name="mono_calibartion_params_path" default="$(find camera_models)/params" />
+  
+  <group if="$(arg is_left_camera)">
+    <node pkg="nodelet" type="nodelet" name="mynt_calibr" args="standalone camera_models/CameraCalibration" respawn="false" output="screen">
+      <param name="mono_topic" value="$(arg ns)/$(arg left_topic)" />
+      <param name="boradsize_width" value="$(arg boradsize_width)" />
+      <param name="boradsize_height" value="$(arg boradsize_height)" />
+      <param name="square_size" value="$(arg square_size)" /> 
+      <param name="use_opencv" value="$(arg use_opencv)" /> 
+      <param name="camera_model" value="$(arg camera_model)" />
+      <param name="calibrate_nr" value="$(arg calibrate_nr)" />
+      <param name="camera_file" value="$(arg mono_calibartion_params_path)/$(arg mynteye)/left_equ.yaml" if="$(eval arg('camera_model') == 'kannala-brandt')" />
+      <param name="camera_file" value="$(arg mono_calibartion_params_path)/$(arg mynteye)/left_pinhole.yaml" if="$(eval arg('camera_model') == 'pinhole')" />
+      <param name="camera_file" value="$(arg mono_calibartion_params_path)/$(arg mynteye)/left_mei.yaml" if="$(eval arg('camera_model') == 'mei')" />
+    </node>
+  </group>
+
+  <group unless="$(arg is_left_camera)">
+    <node pkg="nodelet" type="nodelet" name="mynt_calibr" args="standalone camera_models/CameraCalibration" respawn="false" output="screen">
+      <param name="mono_topic" value="$(arg ns)/$(arg right_topic)" />
+      <param name="boradsize_width" value="$(arg boradsize_width)" />
+      <param name="boradsize_height" value="$(arg boradsize_height)" />
+      <param name="square_size" value="$(arg square_size)" /> 
+      <param name="use_opencv" value="$(arg use_opencv)" /> 
+      <param name="camera_model" value="$(arg camera_model)" />
+      <param name="calibrate_nr" value="$(arg calibrate_nr)" />
+      <param name="camera_file" value="$(arg mono_calibartion_params_path)/$(arg mynteye)/right_equ.yaml" if="$(eval arg('camera_model') == 'kannala-brandt')" />
+      <param name="camera_file" value="$(arg mono_calibartion_params_path)/$(arg mynteye)/right_pinhole.yaml" if="$(eval arg('camera_model') == 'pinhole')" />
+      <param name="camera_file" value="$(arg mono_calibartion_params_path)/$(arg mynteye)/right_mei.yaml" if="$(eval arg('camera_model') == 'mei')" />
+    </node>
+  </group>
+
+</launch>

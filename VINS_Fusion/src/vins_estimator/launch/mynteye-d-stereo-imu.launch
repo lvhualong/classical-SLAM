@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="config_file" default="$(find vins_fusion)/../config/mynteye-d/mynt_stereo_imu_config.yaml" />
+
+    <node name="vins_estimator" pkg="vins_fusion" type="vins_d_node" output="screen" >
+      <param name="config_file" value="$(arg config_file)" />
+    </node>
+
+    <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find vins_fusion)/../config/vins_rviz_config.rviz" />
+</launch>
