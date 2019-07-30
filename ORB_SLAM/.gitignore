@@ -1,7 +1,0 @@
-
-build/*
-devel/*
-src/orb_slam/Data/ORBvoc.txt
-
-! build/Makefile
-! devel/setup.bash
