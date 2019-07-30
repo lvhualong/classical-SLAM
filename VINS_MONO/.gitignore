@@ -1,0 +1,7 @@
+
+build/*
+devel/*
+
+
+! build/Makefile
+! devel/setup.bash
