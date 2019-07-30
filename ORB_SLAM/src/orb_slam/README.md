@@ -2,6 +2,48 @@
 
 ## catkin_build
 
+ **修改成catkin_make方式的ros软件包**
+
+- 修改CmakeLists.txt
+- 添加package.xml
+- 修改 src/ORBextractor.cc 文件
+- 修改Thirdparty/g2o/g2o/solvers/linea_solver_eigen.h文件
+- catkin_make
+
+###  摄像头单次运行测试
+```
+run ORB_SLAM node
+cd /home/hualong/ssd/coding/ros-SLAM-ws/src/ORB_SLAM
+rosrun  ORB_SLAM ORB_SLAM   Data/ORBvoc.txt  Data/Settings.yaml
+
+需要一个发布 /camera/image_raw的单目RGB话题
+rosrun uvc_camera uvc_camera_node /image_raw:=/camera/image_raw
+
+rviz 可视化
+rosrun rviz rviz -d Data/rviz.rviz
+
+```
+
+###  数据集运行测试
+run ORB_SLAM node
+cd /home/hualong/ssd/coding/ros-SLAM-ws/src/ORB_SLAM
+rosrun  ORB_SLAM ORB_SLAM   Data/ORBvoc.txt  Data/Settings.yaml
+
+rviz 可视化
+rosrun rviz rviz -d Data/rviz.rviz
+
+rosbag play --pause Example.bag
+
+
+## 源码分析
+
+### 前端特征提取与特征追踪
+
+### 单目VO初始化
+在 Tracking::Initlize()中调用Initializer::Initialize
+mpInitializer->Initialize(mCurrentFrame, mvIniMatches, Rcw, tcw, mvIniP3D, vbTriangulated)
+
+
 
 
 

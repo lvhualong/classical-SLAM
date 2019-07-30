@@ -21,23 +21,23 @@
 #ifndef TRACKING_H
 #define TRACKING_H
 
-#include<opencv2/core/core.hpp>
-#include<opencv2/features2d/features2d.hpp>
-#include<sensor_msgs/Image.h>
-#include<sensor_msgs/image_encodings.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/features2d/features2d.hpp>
+#include <sensor_msgs/Image.h>
+#include <sensor_msgs/image_encodings.h>
 
-#include"FramePublisher.h"
-#include"Map.h"
-#include"LocalMapping.h"
-#include"LoopClosing.h"
-#include"Frame.h"
+#include "FramePublisher.h"
+#include "Map.h"
+#include "LocalMapping.h"
+#include "LoopClosing.h"
+#include "Frame.h"
 #include "ORBVocabulary.h"
-#include"KeyFrameDatabase.h"
-#include"ORBextractor.h"
+#include "KeyFrameDatabase.h"
+#include "ORBextractor.h"
 #include "Initializer.h"
 #include "MapPublisher.h"
 
-#include<tf/transform_broadcaster.h>
+#include <tf/transform_broadcaster.h>
 
 /* ORB_SLAM::Tracking 类
 *******************************************************************
@@ -57,26 +57,25 @@ class Map;
 class LocalMapping;
 class LoopClosing;
 
-
-
 class Tracking
-{  
+{
 
 public:
-    Tracking(ORBVocabulary* pVoc, FramePublisher* pFramePublisher, MapPublisher* pMapPublisher, Map* pMap, string strSettingPath);
+    Tracking(ORBVocabulary *pVoc, FramePublisher *pFramePublisher, MapPublisher *pMapPublisher, Map *pMap, string strSettingPath);
 
-    enum eTrackingState{
-        SYSTEM_NOT_READY=-1,
-        NO_IMAGES_YET=0,
-        NOT_INITIALIZED=1,
-        INITIALIZING=2,
-        WORKING=3,
-        LOST=4
+    enum eTrackingState
+    {
+        SYSTEM_NOT_READY = -1,
+        NO_IMAGES_YET = 0,
+        NOT_INITIALIZED = 1, //reference frame还没有选定
+        INITIALIZING = 2,    // reference frame选定，正在初始化
+        WORKING = 3,         //初始化之后的状态
+        LOST = 4             // tracking丢失了
     };
 
-    void SetLocalMapper(LocalMapping* pLocalMapper);
-    void SetLoopClosing(LoopClosing* pLoopClosing);
-    void SetKeyFrameDatabase(KeyFrameDatabase* pKFDB);
+    void SetLocalMapper(LocalMapping *pLocalMapper);
+    void SetLoopClosing(LoopClosing *pLoopClosing);
+    void SetKeyFrameDatabase(KeyFrameDatabase *pKFDB);
 
     // This is the main function of the Tracking Thread
     void Run();
@@ -84,7 +83,7 @@ public:
     void ForceRelocalisation();
 
     eTrackingState mState;
-    eTrackingState mLastProcessedState;    
+    eTrackingState mLastProcessedState;
 
     // Current Frame
     Frame mCurrentFrame;
@@ -96,12 +95,10 @@ public:
     std::vector<cv::Point3f> mvIniP3D;
     Frame mInitialFrame;
 
-
     void CheckResetByPublishers();
 
-
 protected:
-    void GrabImage(const sensor_msgs::ImageConstPtr& msg);
+    void GrabImage(const sensor_msgs::ImageConstPtr &msg);
 
     void FirstInitialization();
     void Initialize();
@@ -113,7 +110,7 @@ protected:
     bool TrackWithMotionModel();
 
     bool RelocalisationRequested();
-    bool Relocalisation();    
+    bool Relocalisation();
 
     void UpdateReference();
     void UpdateReferencePoints();
@@ -125,33 +122,32 @@ protected:
     bool NeedNewKeyFrame();
     void CreateNewKeyFrame();
 
-
     //Other Thread Pointers
-    LocalMapping* mpLocalMapper;
-    LoopClosing* mpLoopClosing;
+    LocalMapping *mpLocalMapper;
+    LoopClosing *mpLoopClosing;
 
     //ORB
-    ORBextractor* mpORBextractor;
-    ORBextractor* mpIniORBextractor;
+    ORBextractor *mpORBextractor;
+    ORBextractor *mpIniORBextractor;
 
     //BoW
-    ORBVocabulary* mpORBVocabulary;
-    KeyFrameDatabase* mpKeyFrameDB;
+    ORBVocabulary *mpORBVocabulary;
+    KeyFrameDatabase *mpKeyFrameDB;
 
     // Initalization
-    Initializer* mpInitializer;
+    Initializer *mpInitializer;
 
     //Local Map
-    KeyFrame* mpReferenceKF;
-    std::vector<KeyFrame*> mvpLocalKeyFrames;
-    std::vector<MapPoint*> mvpLocalMapPoints;
+    KeyFrame *mpReferenceKF;
+    std::vector<KeyFrame *> mvpLocalKeyFrames;
+    std::vector<MapPoint *> mvpLocalMapPoints;
 
     //Publishers
-    FramePublisher* mpFramePublisher;
-    MapPublisher* mpMapPublisher;
+    FramePublisher *mpFramePublisher;
+    MapPublisher *mpMapPublisher;
 
     //Map
-    Map* mpMap;
+    Map *mpMap;
 
     //Calibration matrix
     cv::Mat mK;
@@ -165,7 +161,7 @@ protected:
     int mnMatchesInliers;
 
     //Last Frame, KeyFrame and Relocalisation Info
-    KeyFrame* mpLastKeyFrame;
+    KeyFrame *mpLastKeyFrame;
     Frame mLastFrame;
     unsigned int mnLastKeyFrameId;
     unsigned int mnLastRelocFrameId;

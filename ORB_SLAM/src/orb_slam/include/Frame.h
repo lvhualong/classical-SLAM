@@ -53,10 +53,10 @@ class Frame
 public:
     Frame();
     Frame(const Frame &frame);
-    Frame(cv::Mat &im, const double &timeStamp, ORBextractor* extractor, ORBVocabulary* voc, cv::Mat &K, cv::Mat &distCoef);
+    Frame(cv::Mat &im, const double &timeStamp, ORBextractor *extractor, ORBVocabulary *voc, cv::Mat &K, cv::Mat &distCoef);
 
-    ORBVocabulary* mpORBvocabulary;
-    ORBextractor* mpORBextractor;
+    ORBVocabulary *mpORBvocabulary;
+    ORBextractor *mpORBextractor;
 
     // Frame image
     cv::Mat im;
@@ -87,7 +87,7 @@ public:
     cv::Mat mDescriptors;
 
     // MapPoints associated to keypoints, NULL pointer if not association
-    std::vector<MapPoint*> mvpMapPoints;
+    std::vector<MapPoint *> mvpMapPoints;
 
     // Flag to identify outlier associations
     std::vector<bool> mvbOutlier;
@@ -104,19 +104,19 @@ public:
     static long unsigned int nNextId;
     long unsigned int mnId;
 
-    KeyFrame* mpReferenceKF;
+    KeyFrame *mpReferenceKF;
 
     void ComputeBoW();
 
     void UpdatePoseMatrices();
 
     // Check if a MapPoint is in the frustum of the camera and also fills variables of the MapPoint to be used by the tracking
-    bool isInFrustum(MapPoint* pMP, float viewingCosLimit);
+    bool isInFrustum(MapPoint *pMP, float viewingCosLimit);
 
     // Compute the cell of a keypoint (return false if outside the grid)
     bool PosInGrid(cv::KeyPoint &kp, int &posX, int &posY);
 
-    vector<size_t> GetFeaturesInArea(const float &x, const float  &y, const float  &r, const int minLevel=-1, const int maxLevel=-1) const;
+    vector<size_t> GetFeaturesInArea(const float &x, const float &y, const float &r, const int minLevel = -1, const int maxLevel = -1) const;
 
     // Scale Pyramid Info
     int mnScaleLevels;
@@ -133,9 +133,7 @@ public:
 
     static bool mbInitialComputations;
 
-
 private:
-
     void UndistortKeyPoints();
     void ComputeImageBounds();
 
@@ -145,6 +143,6 @@ private:
     cv::Mat mtcw;
 };
 
-}// namespace ORB_SLAM
+} // namespace ORB_SLAM
 
 #endif // FRAME_H

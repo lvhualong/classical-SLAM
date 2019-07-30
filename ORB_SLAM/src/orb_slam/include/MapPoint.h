@@ -35,7 +35,7 @@ class ImageFeature;
 class KeyFrame;
 class Map;
 
-
+// 地图点
 class MapPoint
 {
 public:

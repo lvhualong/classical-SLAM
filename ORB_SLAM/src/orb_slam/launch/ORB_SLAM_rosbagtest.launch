@@ -1,8 +1,20 @@
 <launch>
 
 	<!-- rosbag play  使用回放bag的方式来测试ORB-SLAM -->
+	<!-- <arg name="monocular_bag"  default= "/home/ubuntu/dataset/TJU-stereo/color720p.bag" />
+	<arg name="image_topic" default="/mynteye/left/image_color" /> -->
+
+	<!-- MH_01_easy  V1_02_medium -->
+	<!-- <arg name="monocular_bag"  default= "/home/ubuntu/dataset/EuRoc/MH_01_easy.bag " />
+	<arg name="image_topic" default="/cam0/image_raw" /> -->
+
 	
-	<node pkg="rosbag" type="play" name="play" args="--pause  /home/hualong/ssd/datasets/ORB-SLAM-test.bag" output="screen" >
+		<!--  V1_0rgbd_dataset_freiburg3_long_office_household2_medium -->
+	<arg name="monocular_bag"  default= "/home/ubuntu/dataset/TUM-dataset/rgbd_dataset_freiburg3_long_office_household.bag" />
+	<arg name="image_topic" default="/camera/rgb/image_color" />
+
+	<node pkg="rosbag" type="play" name="play" args="--pause  $(arg monocular_bag)" output="screen" >
+	<remap from="$(arg image_topic)" to="/camera/image_raw" />
    </node>
 
 
@@ -14,12 +26,12 @@
 	</node> -->
 
 	<!-- rviz node  查看 ORB-SLAM tracking and mapping -->
-	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find ORB_SLAM)/Data/rviz.rviz" output="log">
+	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find orb_slam)/Data/rviz.rviz" output="log">
    </node>
 
 	<!-- ORB-SLAM node  根据输入的单目图像帧序列，追踪相机位姿，并构建稀疏 关键点地图 -->
 	<!-- cwd="node" 参数让node 与工程同目录，这样可以保证KeyFrameTrajectory.txt 输出在工程目录下 -->
- 	<node pkg="ORB_SLAM" type="ORB_SLAM" name="ORB_SLAM"  args="../ORBvoc/ORBvoc.txt Data/Settings.yaml" cwd="node"  output="screen">
+ 	<node pkg="orb_slam" type="orb_slam" name="ORB_SLAM"  args="Data/ORBvoc.txt Data/Settings.yaml" cwd="node"  output="screen">
    </node>
 
 

@@ -50,24 +50,24 @@ include_directories(
 ## 编译生成可执行文件 
 # rosbuild_add_executable(${PROJECT_NAME}
 add_executable( ${PROJECT_NAME}
-src/main.cc
-src/Tracking.cc
-src/LocalMapping.cc
-src/LoopClosing.cc
-src/ORBextractor.cc
-src/ORBmatcher.cc
-src/FramePublisher.cc
-src/Converter.cc
-src/MapPoint.cc
-src/KeyFrame.cc
-src/Map.cc
-src/MapPublisher.cc
-src/Optimizer.cc
-src/PnPsolver.cc
-src/Frame.cc
-src/KeyFrameDatabase.cc
-src/Sim3Solver.cc
-src/Initializer.cc
+    src/main.cc
+    src/Tracking.cc
+    src/LocalMapping.cc
+    src/LoopClosing.cc
+    src/ORBextractor.cc
+    src/ORBmatcher.cc
+    src/FramePublisher.cc
+    src/Converter.cc
+    src/MapPoint.cc
+    src/KeyFrame.cc
+    src/Map.cc
+    src/MapPublisher.cc
+    src/Optimizer.cc
+    src/PnPsolver.cc
+    src/Frame.cc
+    src/KeyFrameDatabase.cc
+    src/Sim3Solver.cc
+    src/Initializer.cc
 )
 # rosbuild_add_boost_directories()
 # rosbuild_link_boost(${PROJECT_NAME} thread)
