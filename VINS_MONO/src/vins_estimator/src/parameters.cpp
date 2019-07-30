@@ -5,7 +5,7 @@ double MIN_PARALLAX;
 double ACC_N, ACC_W;
 double GYR_N, GYR_W;
 
-std::vector<Eigen::Matrix3d> RIC;
+std::vector<Eigen::Matrix3d> RIC;//初始的cam->bady的外参
 std::vector<Eigen::Vector3d> TIC;
 
 Eigen::Vector3d G{0.0, 0.0, 9.8};
@@ -73,7 +73,7 @@ void readParameters(ros::NodeHandle &n)
     ROS_INFO("ROW: %f COL: %f ", ROW, COL);
 
     ESTIMATE_EXTRINSIC = fsSettings["estimate_extrinsic"];
-    if (ESTIMATE_EXTRINSIC == 2)
+    if (ESTIMATE_EXTRINSIC == 2) //完全估计相对外参
     {
         ROS_WARN("have no prior about extrinsic param, calibrate extrinsic param");
         RIC.push_back(Eigen::Matrix3d::Identity());
@@ -83,12 +83,12 @@ void readParameters(ros::NodeHandle &n)
     }
     else 
     {
-        if ( ESTIMATE_EXTRINSIC == 1)
+        if ( ESTIMATE_EXTRINSIC == 1)//有一组初值，后面再优化
         {
             ROS_WARN(" Optimize extrinsic param around initial guess!");
             EX_CALIB_RESULT_PATH = OUTPUT_PATH + "/extrinsic_parameter.csv";
         }
-        if (ESTIMATE_EXTRINSIC == 0)
+        if (ESTIMATE_EXTRINSIC == 0)//固定外参
             ROS_WARN(" fix extrinsic param ");
 
         cv::Mat cv_R, cv_T;
@@ -100,14 +100,14 @@ void readParameters(ros::NodeHandle &n)
         cv::cv2eigen(cv_T, eigen_T);
         Eigen::Quaterniond Q(eigen_R);
         eigen_R = Q.normalized();
-        RIC.push_back(eigen_R);
+        RIC.push_back(eigen_R);//从文件中读取外参
         TIC.push_back(eigen_T);
         ROS_INFO_STREAM("Extrinsic_R : " << std::endl << RIC[0]);
         ROS_INFO_STREAM("Extrinsic_T : " << std::endl << TIC[0].transpose());
         
     } 
 
-    INIT_DEPTH = 5.0;
+    INIT_DEPTH = 5.0;//固定视觉初始深度
     BIAS_ACC_THRESHOLD = 0.1;
     BIAS_GYR_THRESHOLD = 0.1;
 

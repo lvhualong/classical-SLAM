@@ -1,6 +1,7 @@
 #include "initial_ex_rotation.h"
 
-InitialEXRotation::InitialEXRotation(){
+InitialEXRotation::InitialEXRotation()
+{
     frame_count = 0;
     Rc.push_back(Matrix3d::Identity());
     Rc_g.push_back(Matrix3d::Identity());
@@ -8,12 +9,13 @@ InitialEXRotation::InitialEXRotation(){
     ric = Matrix3d::Identity();
 }
 
+// 相机与imu相对外参的估计
 bool InitialEXRotation::CalibrationExRotation(vector<pair<Vector3d, Vector3d>> corres, Quaterniond delta_q_imu, Matrix3d &calib_ric_result)
 {
     frame_count++;
-    Rc.push_back(solveRelativeR(corres));
-    Rimu.push_back(delta_q_imu.toRotationMatrix());
-    Rc_g.push_back(ric.inverse() * delta_q_imu * ric);
+    Rc.push_back(solveRelativeR(corres));              //计算两帧cam之间的旋转
+    Rimu.push_back(delta_q_imu.toRotationMatrix());    //imu的旋转
+    Rc_g.push_back(ric.inverse() * delta_q_imu * ric); //imu的旋转转换到相机的旋转
 
     Eigen::MatrixXd A(frame_count * 4, 4);
     A.setZero();
@@ -24,12 +26,11 @@ bool InitialEXRotation::CalibrationExRotation(vector<pair<Vector3d, Vector3d>> c
         Quaterniond r2(Rc_g[i]);
 
         double angular_distance = 180 / M_PI * r1.angularDistance(r2);
-        ROS_DEBUG(
-            "%d %f", i, angular_distance);
+        ROS_DEBUG("%d %f", i, angular_distance);
 
-        double huber = angular_distance > 5.0 ? 5.0 / angular_distance : 1.0;
+        double huber = angular_distance > 5.0 ? 5.0 / angular_distance : 1.0; //鲁棒核函数
         ++sum_ok;
-        Matrix4d L, R;
+        Matrix4d L, R;//由四元素拆分的反对乘矩阵
 
         double w = Quaterniond(Rc[i]).w();
         Vector3d q = Quaterniond(Rc[i]).vec();
@@ -46,11 +47,11 @@ bool InitialEXRotation::CalibrationExRotation(vector<pair<Vector3d, Vector3d>> c
         R.block<1, 3>(3, 0) = -q.transpose();
         R(3, 3) = w;
 
-        A.block<4, 4>((i - 1) * 4, 0) = huber * (L - R);
+        A.block<4, 4>((i - 1) * 4, 0) = huber * (L - R); //带huber核函数的QN
     }
 
     JacobiSVD<MatrixXd> svd(A, ComputeFullU | ComputeFullV);
-    Matrix<double, 4, 1> x = svd.matrixV().col(3);
+    Matrix<double, 4, 1> x = svd.matrixV().col(3); //最小奇异值对应的奇异向量
     Quaterniond estimated_R(x);
     ric = estimated_R.toRotationMatrix().inverse();
     //cout << svd.singularValues().transpose() << endl;
@@ -76,7 +77,7 @@ Matrix3d InitialEXRotation::solveRelativeR(const vector<pair<Vector3d, Vector3d>
             ll.push_back(cv::Point2f(corres[i].first(0), corres[i].first(1)));
             rr.push_back(cv::Point2f(corres[i].second(0), corres[i].second(1)));
         }
-        cv::Mat E = cv::findFundamentalMat(ll, rr);
+        cv::Mat E = cv::findFundamentalMat(ll, rr); //根据匹配的特征点对，计算F矩阵
         cv::Mat_<double> R1, R2, t1, t2;
         decomposeE(E, R1, R2, t1, t2);
 
@@ -99,8 +100,8 @@ Matrix3d InitialEXRotation::solveRelativeR(const vector<pair<Vector3d, Vector3d>
 }
 
 double InitialEXRotation::testTriangulation(const vector<cv::Point2f> &l,
-                                          const vector<cv::Point2f> &r,
-                                          cv::Mat_<double> R, cv::Mat_<double> t)
+                                            const vector<cv::Point2f> &r,
+                                            cv::Mat_<double> R, cv::Mat_<double> t)
 {
     cv::Mat pointcloud;
     cv::Matx34f P = cv::Matx34f(1, 0, 0, 0,
@@ -125,8 +126,8 @@ double InitialEXRotation::testTriangulation(const vector<cv::Point2f> &l,
 }
 
 void InitialEXRotation::decomposeE(cv::Mat E,
-                                 cv::Mat_<double> &R1, cv::Mat_<double> &R2,
-                                 cv::Mat_<double> &t1, cv::Mat_<double> &t2)
+                                   cv::Mat_<double> &R1, cv::Mat_<double> &R2,
+                                   cv::Mat_<double> &t1, cv::Mat_<double> &t2)
 {
     cv::SVD svd(E, cv::SVD::MODIFY_A);
     cv::Matx33d W(0, -1, 0,

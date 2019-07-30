@@ -1,9 +1,9 @@
 #include "initial_sfm.h"
 
-GlobalSFM::GlobalSFM(){}
+GlobalSFM::GlobalSFM() {}
 
 void GlobalSFM::triangulatePoint(Eigen::Matrix<double, 3, 4> &Pose0, Eigen::Matrix<double, 3, 4> &Pose1,
-						Vector2d &point0, Vector2d &point1, Vector3d &point_3d)
+								 Vector2d &point0, Vector2d &point1, Vector3d &point_3d)
 {
 	Matrix4d design_matrix = Matrix4d::Zero();
 	design_matrix.row(0) = point0[0] * Pose0.row(2) - Pose0.row(0);
@@ -12,12 +12,11 @@ void GlobalSFM::triangulatePoint(Eigen::Matrix<double, 3, 4> &Pose0, Eigen::Matr
 	design_matrix.row(3) = point1[1] * Pose1.row(2) - Pose1.row(1);
 	Vector4d triangulated_point;
 	triangulated_point =
-		      design_matrix.jacobiSvd(Eigen::ComputeFullV).matrixV().rightCols<1>();
+		design_matrix.jacobiSvd(Eigen::ComputeFullV).matrixV().rightCols<1>();
 	point_3d(0) = triangulated_point(0) / triangulated_point(3);
 	point_3d(1) = triangulated_point(1) / triangulated_point(3);
 	point_3d(2) = triangulated_point(2) / triangulated_point(3);
 }
-
 
 bool GlobalSFM::solveFrameByPnP(Matrix3d &R_initial, Vector3d &P_initial, int i,
 								vector<SFMFeature> &sfm_f)
@@ -55,7 +54,7 @@ bool GlobalSFM::solveFrameByPnP(Matrix3d &R_initial, Vector3d &P_initial, int i,
 	cv::Mat K = (cv::Mat_<double>(3, 3) << 1, 0, 0, 0, 1, 0, 0, 0, 1);
 	bool pnp_succ;
 	pnp_succ = cv::solvePnP(pts_3_vector, pts_2_vector, K, D, rvec, t, 1);
-	if(!pnp_succ)
+	if (!pnp_succ)
 	{
 		return false;
 	}
@@ -68,10 +67,9 @@ bool GlobalSFM::solveFrameByPnP(Matrix3d &R_initial, Vector3d &P_initial, int i,
 	R_initial = R_pnp;
 	P_initial = T_pnp;
 	return true;
-
 }
 
-void GlobalSFM::triangulateTwoFrames(int frame0, Eigen::Matrix<double, 3, 4> &Pose0, 
+void GlobalSFM::triangulateTwoFrames(int frame0, Eigen::Matrix<double, 3, 4> &Pose0,
 									 int frame1, Eigen::Matrix<double, 3, 4> &Pose1,
 									 vector<SFMFeature> &sfm_f)
 {
@@ -105,18 +103,18 @@ void GlobalSFM::triangulateTwoFrames(int frame0, Eigen::Matrix<double, 3, 4> &Po
 			sfm_f[j].position[1] = point_3d(1);
 			sfm_f[j].position[2] = point_3d(2);
 			//cout << "trangulated : " << frame1 << "  3d point : "  << j << "  " << point_3d.transpose() << endl;
-		}							  
+		}
 	}
 }
 
-// 	 q w_R_cam t w_R_cam
-//  c_rotation cam_R_w 
+// 	q w_R_cam t w_R_cam
+//  c_rotation cam_R_w
 //  c_translation cam_R_w
 // relative_q[i][j]  j_q_i
 // relative_t[i][j]  j_t_ji  (j < i)
-bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
-			  const Matrix3d relative_R, const Vector3d relative_T,
-			  vector<SFMFeature> &sfm_f, map<int, Vector3d> &sfm_tracked_points)
+bool GlobalSFM::construct(int frame_num, Quaterniond *q, Vector3d *T, int l,
+						  const Matrix3d relative_R, const Vector3d relative_T,
+						  vector<SFMFeature> &sfm_f, map<int, Vector3d> &sfm_tracked_points)
 {
 	feature_num = sfm_f.size();
 	//cout << "set 0 and " << l << " as known " << endl;
@@ -152,17 +150,16 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 	Pose[frame_num - 1].block<3, 3>(0, 0) = c_Rotation[frame_num - 1];
 	Pose[frame_num - 1].block<3, 1>(0, 3) = c_Translation[frame_num - 1];
 
-
 	//1: trangulate between l ----- frame_num - 1
-	//2: solve pnp l + 1; trangulate l + 1 ------- frame_num - 1; 
-	for (int i = l; i < frame_num - 1 ; i++)
+	//2: solve pnp l + 1; trangulate l + 1 ------- frame_num - 1;
+	for (int i = l; i < frame_num - 1; i++)
 	{
 		// solve pnp
 		if (i > l)
 		{
 			Matrix3d R_initial = c_Rotation[i - 1];
 			Vector3d P_initial = c_Translation[i - 1];
-			if(!solveFrameByPnP(R_initial, P_initial, i, sfm_f))
+			if (!solveFrameByPnP(R_initial, P_initial, i, sfm_f))
 				return false;
 			c_Rotation[i] = R_initial;
 			c_Translation[i] = P_initial;
@@ -184,7 +181,7 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 		//solve pnp
 		Matrix3d R_initial = c_Rotation[i + 1];
 		Vector3d P_initial = c_Translation[i + 1];
-		if(!solveFrameByPnP(R_initial, P_initial, i, sfm_f))
+		if (!solveFrameByPnP(R_initial, P_initial, i, sfm_f))
 			return false;
 		c_Rotation[i] = R_initial;
 		c_Translation[i] = P_initial;
@@ -213,10 +210,10 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 			sfm_f[j].position[1] = point_3d(1);
 			sfm_f[j].position[2] = point_3d(2);
 			//cout << "trangulated : " << frame_0 << " " << frame_1 << "  3d point : "  << j << "  " << point_3d.transpose() << endl;
-		}		
+		}
 	}
 
-/*
+	/*
 	for (int i = 0; i < frame_num; i++)
 	{
 		q[i] = c_Rotation[i].transpose(); 
@@ -231,7 +228,7 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 */
 	//full BA
 	ceres::Problem problem;
-	ceres::LocalParameterization* local_parameterization = new ceres::QuaternionParameterization();
+	ceres::LocalParameterization *local_parameterization = new ceres::QuaternionParameterization();
 	//cout << " begin full BA " << endl;
 	for (int i = 0; i < frame_num; i++)
 	{
@@ -262,14 +259,13 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 		for (int j = 0; j < int(sfm_f[i].observation.size()); j++)
 		{
 			int l = sfm_f[i].observation[j].first;
-			ceres::CostFunction* cost_function = ReprojectionError3D::Create(
-												sfm_f[i].observation[j].second.x(),
-												sfm_f[i].observation[j].second.y());
+			ceres::CostFunction *cost_function = ReprojectionError3D::Create(
+				sfm_f[i].observation[j].second.x(),
+				sfm_f[i].observation[j].second.y());
 
-    		problem.AddResidualBlock(cost_function, NULL, c_rotation[l], c_translation[l], 
-    								sfm_f[i].position);	 
+			problem.AddResidualBlock(cost_function, NULL, c_rotation[l], c_translation[l],
+									 sfm_f[i].position);
 		}
-
 	}
 	ceres::Solver::Options options;
 	options.linear_solver_type = ceres::DENSE_SCHUR;
@@ -289,10 +285,10 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 	}
 	for (int i = 0; i < frame_num; i++)
 	{
-		q[i].w() = c_rotation[i][0]; 
-		q[i].x() = c_rotation[i][1]; 
-		q[i].y() = c_rotation[i][2]; 
-		q[i].z() = c_rotation[i][3]; 
+		q[i].w() = c_rotation[i][0];
+		q[i].x() = c_rotation[i][1];
+		q[i].y() = c_rotation[i][2];
+		q[i].z() = c_rotation[i][3];
 		q[i] = q[i].inverse();
 		//cout << "final  q" << " i " << i <<"  " <<q[i].w() << "  " << q[i].vec().transpose() << endl;
 	}
@@ -304,10 +300,8 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 	}
 	for (int i = 0; i < (int)sfm_f.size(); i++)
 	{
-		if(sfm_f[i].state)
+		if (sfm_f[i].state)
 			sfm_tracked_points[sfm_f[i].id] = Vector3d(sfm_f[i].position[0], sfm_f[i].position[1], sfm_f[i].position[2]);
 	}
 	return true;
-
 }
-
