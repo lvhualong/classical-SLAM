@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(vins_pose_graph)
+## 全局位姿图优化的pose graph
 
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++11")

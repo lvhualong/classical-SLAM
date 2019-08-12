@@ -1,0 +1,10 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/ubuntu/coding/classical-SLAM/cartographer/cartographer_ros_ws/devel/lib/python2.7/dist-packages",
+        "/home/ubuntu/coding/Autonomous-mobile-robot/devel/lib/python2.7/dist-packages",
+        "/home/ubuntu/coding/ros-mapping-ws/devel/lib/python2.7/dist-packages",
+        "/home/ubuntu/coding/MYNT-SDK/MYNT-EYE-D-SDK/wrappers/ros/devel/lib/python2.7/dist-packages",
+        "/home/ubuntu/coding/px4-simulation/avoidance_ros_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/kinetic/lib/python2.7/dist-packages"
+    ]
+}

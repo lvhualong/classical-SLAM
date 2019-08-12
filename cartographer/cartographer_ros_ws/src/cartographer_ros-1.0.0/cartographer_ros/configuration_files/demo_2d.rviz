@@ -1,0 +1,723 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /TF1/Frames1
+        - /TF1/Frames1/base_link1
+        - /Trajectories1
+        - /Landmark Poses1
+        - /Constraints1
+        - /Axes1
+      Splitter Ratio: 0.600670993
+    Tree Height: 725
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.588679016
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: PointCloud2
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.0299999993
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 100
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        base_link:
+          Value: true
+        horizontal_laser_link:
+          Value: true
+        imu_link:
+          Value: true
+        map:
+          Value: true
+        odom:
+          Value: true
+        vertical_laser_link:
+          Value: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        map:
+          odom:
+            base_link:
+              horizontal_laser_link:
+                {}
+              imu_link:
+                {}
+              vertical_laser_link:
+                {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        horizontal_laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        vertical_laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: Submaps
+      Enabled: true
+      Fade-out distance: 1
+      High Resolution: true
+      Low Resolution: false
+      Name: Submaps
+      Submap query service: /submap_query
+      Submaps:
+        All: true
+        Trajectory 0:
+          0.180: true
+          1.180: true
+          10.180: true
+          100.180: true
+          101.180: true
+          102.180: true
+          103.180: true
+          104.180: true
+          105.180: true
+          106.180: true
+          107.180: true
+          108.180: true
+          109.180: true
+          11.180: true
+          110.180: true
+          111.180: true
+          112.180: true
+          113.180: true
+          114.180: true
+          115.180: true
+          116.180: true
+          117.180: true
+          118.180: true
+          119.180: true
+          12.180: true
+          120.180: true
+          121.180: true
+          122.180: true
+          123.180: true
+          124.180: true
+          125.180: true
+          126.180: true
+          127.180: true
+          128.180: true
+          129.180: true
+          13.180: true
+          130.180: true
+          131.180: true
+          132.180: true
+          133.180: true
+          134.180: true
+          135.180: true
+          136.180: true
+          137.180: true
+          138.180: true
+          139.180: true
+          14.180: true
+          140.180: true
+          141.180: true
+          142.180: true
+          143.180: true
+          144.180: true
+          145.180: true
+          146.180: true
+          147.180: true
+          148.180: true
+          149.180: true
+          15.180: true
+          150.180: true
+          151.180: true
+          152.180: true
+          153.180: true
+          154.180: true
+          155.180: true
+          156.180: true
+          157.180: true
+          158.180: true
+          159.180: true
+          16.180: true
+          160.180: true
+          161.180: true
+          162.180: true
+          163.180: true
+          164.180: true
+          165.180: true
+          166.180: true
+          167.180: true
+          168.180: true
+          169.180: true
+          17.180: true
+          170.180: true
+          171.180: true
+          172.180: true
+          173.180: true
+          174.180: true
+          175.180: true
+          176.180: true
+          177.180: true
+          178.180: true
+          179.180: true
+          18.180: true
+          180.180: true
+          181.180: true
+          182.180: true
+          183.180: true
+          184.180: true
+          185.180: true
+          186.180: true
+          187.180: true
+          188.180: true
+          189.180: true
+          19.180: true
+          190.180: true
+          191.180: true
+          192.180: true
+          193.180: true
+          194.180: true
+          195.180: true
+          196.180: true
+          197.180: true
+          198.180: true
+          199.180: true
+          2.180: true
+          20.180: true
+          200.180: true
+          201.180: true
+          202.180: true
+          203.180: true
+          204.180: true
+          205.180: true
+          206.180: true
+          207.180: true
+          208.180: true
+          209.180: true
+          21.180: true
+          210.180: true
+          211.180: true
+          212.180: true
+          213.180: true
+          214.180: true
+          215.180: true
+          216.180: true
+          217.180: true
+          218.180: true
+          219.180: true
+          22.180: true
+          220.180: true
+          221.180: true
+          222.180: true
+          223.180: true
+          224.180: true
+          225.180: true
+          226.180: true
+          227.180: true
+          228.180: true
+          229.180: true
+          23.180: true
+          230.180: true
+          231.180: true
+          232.180: true
+          233.180: true
+          234.180: true
+          235.180: true
+          236.180: true
+          237.180: true
+          238.180: true
+          239.180: true
+          24.180: true
+          240.180: true
+          241.180: true
+          242.180: true
+          243.180: true
+          244.180: true
+          245.180: true
+          246.180: true
+          247.180: true
+          248.180: true
+          249.180: true
+          25.180: true
+          250.180: true
+          251.180: true
+          252.180: true
+          253.180: true
+          254.180: true
+          255.180: true
+          256.180: true
+          257.180: true
+          258.180: true
+          259.180: true
+          26.180: true
+          260.180: true
+          261.180: true
+          262.180: true
+          263.180: true
+          264.180: true
+          265.180: true
+          266.180: true
+          267.180: true
+          268.180: true
+          269.180: true
+          27.180: true
+          270.180: true
+          271.180: true
+          272.180: true
+          273.180: true
+          274.180: true
+          275.180: true
+          276.180: true
+          277.180: true
+          278.180: true
+          279.180: true
+          28.180: true
+          280.180: true
+          281.180: true
+          282.180: true
+          283.180: true
+          284.180: true
+          285.180: true
+          286.180: true
+          287.180: true
+          288.180: true
+          289.180: true
+          29.180: true
+          290.180: true
+          291.180: true
+          292.180: true
+          293.180: true
+          294.180: true
+          295.180: true
+          296.180: true
+          297.180: true
+          298.180: true
+          299.180: true
+          3.180: true
+          30.180: true
+          300.180: true
+          301.180: true
+          302.180: true
+          303.180: true
+          304.180: true
+          305.180: true
+          306.180: true
+          307.180: true
+          308.180: true
+          309.180: true
+          31.180: true
+          310.180: true
+          311.180: true
+          312.180: true
+          313.180: true
+          314.180: true
+          315.180: true
+          316.180: true
+          317.180: true
+          318.180: true
+          319.180: true
+          32.180: true
+          320.180: true
+          321.180: true
+          322.180: true
+          323.180: true
+          324.180: true
+          325.180: true
+          326.180: true
+          327.180: true
+          328.180: true
+          329.180: true
+          33.180: true
+          330.180: true
+          331.180: true
+          332.180: true
+          333.180: true
+          334.180: true
+          335.180: true
+          336.180: true
+          337.180: true
+          338.180: true
+          339.180: true
+          34.180: true
+          340.180: true
+          341.180: true
+          342.180: true
+          343.180: true
+          344.180: true
+          345.180: true
+          346.180: true
+          347.180: true
+          348.180: true
+          349.180: true
+          35.180: true
+          350.180: true
+          351.180: true
+          352.180: true
+          353.180: true
+          354.180: true
+          355.180: true
+          356.180: true
+          357.180: true
+          358.180: true
+          359.180: true
+          36.180: true
+          360.180: true
+          361.180: true
+          362.180: true
+          363.180: true
+          364.180: true
+          365.180: true
+          366.180: true
+          367.180: true
+          368.180: true
+          369.180: true
+          37.180: true
+          370.180: true
+          371.180: true
+          372.180: true
+          373.180: true
+          374.180: true
+          375.180: true
+          376.180: true
+          377.180: true
+          378.180: true
+          379.180: true
+          38.180: true
+          380.180: true
+          381.180: true
+          382.180: true
+          383.180: true
+          384.180: true
+          385.180: true
+          386.180: true
+          387.180: true
+          388.180: true
+          389.180: true
+          39.180: true
+          390.180: true
+          391.180: true
+          392.180: true
+          393.180: true
+          394.180: true
+          395.180: true
+          396.180: true
+          397.180: true
+          398.180: true
+          399.180: true
+          4.180: true
+          40.180: true
+          400.180: true
+          401.180: true
+          402.180: true
+          403.180: true
+          404.180: true
+          405.180: true
+          406.180: true
+          407.180: true
+          408.180: true
+          409.180: true
+          41.180: true
+          410.180: true
+          411.180: true
+          412.180: true
+          413.180: true
+          414.180: true
+          415.180: true
+          416.180: true
+          417.180: true
+          418.180: true
+          419.115: true
+          42.180: true
+          420.25: true
+          43.180: true
+          44.180: true
+          45.180: true
+          46.180: true
+          47.180: true
+          48.180: true
+          49.180: true
+          5.180: true
+          50.180: true
+          51.180: true
+          52.180: true
+          53.180: true
+          54.180: true
+          55.180: true
+          56.180: true
+          57.180: true
+          58.180: true
+          59.180: true
+          6.180: true
+          60.180: true
+          61.180: true
+          62.180: true
+          63.180: true
+          64.180: true
+          65.180: true
+          66.180: true
+          67.180: true
+          68.180: true
+          69.180: true
+          7.180: true
+          70.180: true
+          71.180: true
+          72.180: true
+          73.180: true
+          74.180: true
+          75.180: true
+          76.180: true
+          77.180: true
+          78.180: true
+          79.180: true
+          8.180: true
+          80.180: true
+          81.180: true
+          82.180: true
+          83.180: true
+          84.180: true
+          85.180: true
+          86.180: true
+          87.180: true
+          88.180: true
+          89.180: true
+          9.180: true
+          90.180: true
+          91.180: true
+          92.180: true
+          93.180: true
+          94.180: true
+          95.180: true
+          96.180: true
+          97.180: true
+          98.180: true
+          99.180: true
+          Value: true
+        Trajectory 1:
+          59.180: true
+          60.180: true
+          61.180: true
+          62.180: true
+          63.180: true
+          64.180: true
+          65.180: true
+          66.180: true
+          67.180: true
+          68.180: true
+          69.180: true
+          70.180: true
+          71.180: true
+          72.180: true
+          73.180: true
+          74.180: true
+          75.180: true
+          76.180: true
+          77.180: true
+          78.180: true
+          79.180: true
+          80.180: true
+          81.180: true
+          82.180: true
+          83.180: true
+          84.180: true
+          85.180: true
+          86.180: true
+          87.180: true
+          88.180: true
+          89.180: true
+          90.180: true
+          91.180: true
+          92.127: true
+          93.37: true
+          Value: true
+      Topic: /submap_list
+      Tracking frame: base_link
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 0; 0
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.100000001
+      Style: Flat Squares
+      Topic: /scan_matched_points2
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /trajectory_node_list
+      Name: Trajectories
+      Namespaces:
+        Trajectory 0: true
+        Trajectory 1: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /landmark_poses_list
+      Name: Landmark Poses
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /constraint_list
+      Name: Constraints
+      Namespaces:
+        Inter constraints, different trajectories: true
+        Inter constraints, same trajectory: true
+        Inter residuals, different trajectories: true
+        Inter residuals, same trajectory: true
+        Intra constraints: true
+        Intra residuals: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Axes
+      Enabled: true
+      Length: 3
+      Name: Axes
+      Radius: 0.100000001
+      Reference Frame: base_link
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 100; 100; 100
+    Default Light: true
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Topic: /initialpose
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Angle: -14.8500013
+      Class: rviz/TopDownOrtho
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.0599999987
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.00999999978
+      Scale: 13.7438736
+      Target Frame: <Fixed Frame>
+      Value: TopDownOrtho (rviz)
+      X: -54.7891617
+      Y: 21.3627243
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1031
+  Hide Left Dock: false
+  Hide Right Dock: true
+  QMainWindow State: 000000ff00000000fd0000000400000000000001ea00000364fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000004100000364000000d700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000364fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000004100000364000000ad00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000003efc0100000002fb0000000800540069006d00650100000000000007800000030000fffffffb0000000800540069006d00650100000000000004500000000000000000000005900000036400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: true
+  Width: 1920
+  X: 0
+  Y: 27

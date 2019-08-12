@@ -1,0 +1,7 @@
+build/*
+
+bin/*.so
+
+!build/Makefile
+
+data

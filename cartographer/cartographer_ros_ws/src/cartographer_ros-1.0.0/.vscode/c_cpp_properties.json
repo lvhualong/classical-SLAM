@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/ubuntu/coding/classical-SLAM/cartographer/cartographer_ros_ws/devel/include",
+        "/home/ubuntu/coding/Autonomous-mobile-robot/devel/include",
+        "/home/ubuntu/coding/ros-mapping-ws/devel/include",
+        "/home/ubuntu/coding/MYNT-SDK/MYNT-EYE-D-SDK/wrappers/ros/devel/include",
+        "/home/ubuntu/coding/px4-simulation/avoidance_ros_ws/devel/include",
+        "/opt/ros/kinetic/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}
