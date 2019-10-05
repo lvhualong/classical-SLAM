@@ -8,7 +8,7 @@ num_of_cam: 2
 imu_topic: "/imu0"
 image0_topic: "/cam0/image_raw"
 image1_topic: "/cam1/image_raw"
-output_path:  "/home/ubuntu/Documents/vins-fusion/Euroc"
+output_path: "/home/ubuntu/Documents/paper/euroc_stereo"
 
 cam0_calib: "cam0_mei.yaml"
 cam1_calib: "cam1_mei.yaml"
@@ -51,5 +51,5 @@ flow_back: 1            # perform forward and backward optical flow to improve f
 
 #optimization parameters
 max_solver_time: 0.04  # max solver itration time (ms), to guarantee real time
-max_num_iterations: 8   # max solver itrations, to guarantee real time
+max_num_iterations: 10   # max solver itrations, to guarantee real time
 keyframe_parallax: 10.0 # keyframe selection threshold (pixel)

@@ -4,7 +4,14 @@
     <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find vins_fusion)/../config/vins_rviz.rviz" />
 
     <node name="vins_node" pkg="vins_fusion" type="kitti_odom_test" output="screen" 
-    args="$(find vins_fusion)/../config/kitti_odom/kitti_config00-02.yaml  /home/hualong/ssd/datasets/SLAM/KITTI-odom/data_odometry_gray/01" 
+    args="$(find vins_fusion)/../config/kitti_odom/kitti_config04-12.yaml  /home/ubuntu/dataset/kitti-odom/00" 
+    
+    
+   
     />
+
+ <!-- args="$(find vins_fusion)/../config/kitti_odom/kitti_config00-02.yaml  /home/ubuntu/dataset/kitti-odom/01"  -->
+ <!-- args="$(find vins_fusion)/../config/kitti_odom/kitti_config03.yaml  /home/ubuntu/dataset/kitti-odom/03"  -->
+ <!-- args="$(find vins_fusion)/../config/kitti_odom/kitti_config04-12.yaml  /home/ubuntu/dataset/kitti-odom/05"  -->
 
 </launch>

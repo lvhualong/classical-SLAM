@@ -2,6 +2,40 @@
 
 At first ,judge if your device type is mynteye-d ,mynteye-s or mynteye-avarta,then follow the following installation process: [Run vins-fusion with mynteye-s](#ssdkinstall) / [Run vins-fusion with mynteye-d](#dsdkinstall) / [Run vins-fusion with mynteye-avarta](#avartasdkinstall).
 
+
+## 更新
+- 添加带有回环检测的 mono_imu版本
+- 单目+IMU版本的euroc mynt  [vins_mono_IMU_Euroc.launch vins_mono_IMU_MYNT.launch]
+
+## vins_fusion框架
+
+### 1.数据预处理
+对于单目  特征点提取，光流追踪，双目也进行同样的操作
+**两个回调函数**
+每一帧图像的所追踪的特征点　打包成一个map featureFrame[feature_id].emplace_back(camera_id,  xyz_uv_velocity); ==> 按时间放入　ferture_buffer队列
+对于IMU 直接根据时间放入　accBuf gyrBuf
+
+**一个线程**
+processMeasurements()
+
+IMU处理　积分/预积分
+IMAGE处理　根据视差决定关键帧策略
+
+初始化　双目都是pnp求解，三角化求landmark　再进行一个ba
+再优化 IMU　bias
+
+### 2.前端估计
+
+### 3．后端非线性优化
+
+### 4. loop fusion // global_fusion
+
+
+### 输出的结果
+
+imu_propagate　　odom格式　　imu积分算出的latest　P Q V
+
+
 ## Run vins-fusion with <span id = "ssdkinstall">mynteye-s</span>
 ### mono+imu fusion
 ```
@@ -9,6 +43,8 @@ cd MYNT-EYE-S-SDK
 source wrappers/ros/devel/setup.bash
 roslaunch mynt_eye_ros_wrapper mynteye.launch
 roslaunch vins mynteye-s-mono-imu.launch
+
+
 ```
 ### Stereo fusion
 ```

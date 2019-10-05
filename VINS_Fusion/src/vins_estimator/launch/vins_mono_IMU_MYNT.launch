@@ -1,0 +1,19 @@
+<launch>
+    <!-- <remap from="/cam0/image_raw" to="/camera/left/image_raw" /> 
+	<remap from="/cam1/image_raw" to="/camera/right/image_raw" />  -->
+
+    <!-- rviz -->
+    <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find vins_fusion)/../config/vins_rviz_config.rviz" />
+
+    <!-- vins_node   注意回环订阅的话题都是 vins_estimator/***-->
+    <node name="vins_estimator" pkg="vins_fusion" type="vins_node" output="screen" args="$(find vins_fusion)/../config/mynteye-d/mynt_mono_config.yaml" />
+
+    <!-- loop_fusion  回环检测 (不加回环的时候直接注释掉)-->
+    <node name="loop_fusion_node" pkg="loop_fusion" type="loop_fusion_node" output="screen" args="$(find vins_fusion)/../config/mynteye-d/mynt_mono_config.yaml" />
+
+
+    <!--MH_01_easy MH_02_easy  MH_03_medium MH_04_difficult MH_05_difficult -->
+    <!--V1_01_easy V1_02_medium  V1_03_difficult   -->
+    <!--V2_01_easy V2_02_medium  V2_03_difficult   -->
+    <!-- pause  -->
+</launch>

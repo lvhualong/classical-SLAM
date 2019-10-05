@@ -8,7 +8,7 @@ num_of_cam: 2
 imu_topic: "/mynteye/imu/data_raw"
 image0_topic: "/mynteye/left/image_color"
 image1_topic: "/mynteye/right/image_color"
-output_path:  "/home/ubuntu/Documents/vins-fusion/"
+output_path:  "/home/ubuntu/Documents/paper/mynt"
 
 #cam0_calib: "left_pinhole.yaml"
 #cam1_calib: "right_pinhole.yaml"
@@ -54,5 +54,5 @@ flow_back: 1            # perform forward and backward optical flow to improve f
 
 #optimization parameters
 max_solver_time: 0.04  # max solver itration time (ms), to guarantee real time
-max_num_iterations: 8   # max solver itrations, to guarantee real time
+max_num_iterations: 10   # max solver itrations, to guarantee real time
 keyframe_parallax: 10.0 # keyframe selection threshold (pixel)

@@ -19,7 +19,6 @@ find_package(OpenCV)
 
 
 find_package(Ceres REQUIRED)
-
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(Eigen3)
 

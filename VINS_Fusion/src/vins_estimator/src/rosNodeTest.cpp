@@ -21,7 +21,7 @@
 #include "estimator/parameters.h"
 #include "utility/visualization.h"
 
-Estimator estimator;
+Estimator estimator;    //定义estimator全局变量，所以一开始就初始化了
 
 queue<sensor_msgs::ImuConstPtr> imu_buf;
 queue<sensor_msgs::PointCloudConstPtr> feature_buf;

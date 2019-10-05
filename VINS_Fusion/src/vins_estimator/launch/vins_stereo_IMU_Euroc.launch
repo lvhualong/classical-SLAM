@@ -1,6 +1,8 @@
 <launch>
-
-    <node pkg="rosbag" type="play" name="play" args="--pause  /home/ubuntu/dataset/EuRoc/MH_01_easy.bag" output="screen" >
+    <!--MH_01_easy MH_02_easy  MH_03_medium MH_04_difficult MH_05_difficult -->
+    <!--V1_01_easy V1_02_medium  V1_03_difficult   -->
+    <!--V2_01_easy V2_02_medium  V2_03_difficult   -->
+    <node pkg="rosbag" type="play" name="play" args="--pause  /home/ubuntu/dataset/EuRoc/V2_03_difficult.bag" output="screen" >
 	<!-- <remap from="/cam0/image_raw" to="/camera/left/image_raw" /> 
 	<remap from="/cam1/image_raw" to="/camera/right/image_raw" />  -->
    </node>

@@ -45,6 +45,7 @@ class IntegrationBase
         propagate(dt, acc, gyr); //积分
     }
 
+    // 
     void repropagate(const Eigen::Vector3d &_linearized_ba, const Eigen::Vector3d &_linearized_bg)
     {
         sum_dt = 0.0;

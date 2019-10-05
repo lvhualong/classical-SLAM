@@ -10,6 +10,9 @@
 #include "estimator.h"
 #include "../utility/visualization.h"
 
+/*
+* estimator构造函数
+*/
 Estimator::Estimator(): f_manager{Rs}
 {
     ROS_INFO("init begins");
@@ -30,7 +33,7 @@ void Estimator::setParameter()
     {
         tic[i] = TIC[i]; //body to camera 从config中读去一组值
         ric[i] = RIC[i];
-        cout << " exitrinsic cam " << i << endl  << ric[i] << endl << tic[i].transpose() << endl;
+        cout << " extrinsic cam " << i << endl  << ric[i] << endl << tic[i].transpose() << endl;
     }
     
     f_manager.setRic(ric);
@@ -45,18 +48,21 @@ void Estimator::setParameter()
     std::cout << "MULTIPLE_THREAD is " << MULTIPLE_THREAD << '\n';
     if (MULTIPLE_THREAD)
     {
-        processThread   = std::thread(&Estimator::processMeasurements, this);
+        processThread   = std::thread(&Estimator::processMeasurements, this);//启动了processMeasurements线程
     }
 }
 
 
+// 图像数据输入的入口
 void Estimator::inputImage(double t, const cv::Mat &_img, const cv::Mat &_img1)
 {
     inputImageCnt++;
     map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> featureFrame;
     TicToc featureTrackerTime;
+    // 单目vio
     if(_img1.empty())
         featureFrame = featureTracker.trackImage(t, _img);
+    // 双目vio
     else
         featureFrame = featureTracker.trackImage(t, _img, _img1);
     //printf("featureTracker time: %f\n", featureTrackerTime.toc());
@@ -206,7 +212,7 @@ void Estimator::processMeasurements()
 
             //图像特征点数据处理
             TicToc image_process_t; //计时
-            processImage(feature.second, feature.first);
+            processImage(feature.second, feature.first);// featureFrame t
             ROS_WARN("image processing time %f\n", image_process_t.toc());
             prevTime = curTime;
 
@@ -344,10 +350,10 @@ void Estimator::processIMU(double t, double dt, const Vector3d &linear_accelerat
         linear_acceleration_buf[frame_count].push_back(linear_acceleration);
         angular_velocity_buf[frame_count].push_back(angular_velocity);
 
-        //frame_count 初始化之后一直是10， 
+        //frame_count 初始化之后一直是10，
         // 当前时刻 PVQ的中值积分离散形式，
         // 来了一帧IMU 中值积分一次， 又可以作为下次的初值
-        int j = frame_count;         
+        int j = frame_count;
         Vector3d un_acc_0 = Rs[j] * (acc_0 - Bas[j]) - g;
         Vector3d un_gyr = 0.5 * (gyr_0 + angular_velocity) - Bgs[j]; //gyr 中值
         Rs[j] *= Utility::deltaQ(un_gyr * dt).toRotationMatrix(); 
@@ -390,7 +396,7 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
     //ROS_WARN("number of feature: %d", f_manager.getFeatureCount());
     Headers[frame_count] = header;
     ImageFrame imageframe(image, header);
-    imageframe.pre_integration = tmp_pre_integration;
+    imageframe.pre_integration = tmp_pre_integration;//当前图像帧对应的预积分
     ROS_WARN("all_image_frame before size: %lu", all_image_frame.size());
     all_image_frame.insert(make_pair(header, imageframe));
     tmp_pre_integration = new IntegrationBase{acc_0, gyr_0, Bas[frame_count], Bgs[frame_count]};
@@ -476,8 +482,8 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
         if(STEREO && !USE_IMU)
         {
             ROS_DEBUG("Stereo  type");
-            f_manager.initFramePoseByPnP(frame_count, Ps, Rs, tic, ric);
-            f_manager.triangulate(frame_count, Ps, Rs, tic, ric);
+            f_manager.initFramePoseByPnP(frame_count, Ps, Rs, tic, ric);//求解相机pose
+            f_manager.triangulate(frame_count, Ps, Rs, tic, ric);//landmark
             optimization();
 
             if(frame_count == WINDOW_SIZE)
@@ -1563,6 +1569,7 @@ void Estimator::outliersRejection(set<int> &removeIndex)
     }
 }
 
+// 中值积分　计算　latest_P V Q
 void Estimator::fastPredictIMU(double t, Eigen::Vector3d linear_acceleration, Eigen::Vector3d angular_velocity)
 {
     double dt = t - latest_time;

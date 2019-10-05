@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 			Eigen::Matrix<double, 4, 4> pose;
 			estimator.getPoseInWorldFrame(pose);
 			if(outFile != NULL)
-				fprintf (outFile, "%f %f %f %f %f %f %f %f %f %f %f %f \n",pose(0,0), pose(0,1), pose(0,2),pose(0,3),
+				fprintf (outFile, "%f %f %f %f %f %f %f %f %f %f %f %f\n",pose(0,0), pose(0,1), pose(0,2),pose(0,3),
 																	       pose(1,0), pose(1,1), pose(1,2),pose(1,3),
 																	       pose(2,0), pose(2,1), pose(2,2),pose(2,3));
 			

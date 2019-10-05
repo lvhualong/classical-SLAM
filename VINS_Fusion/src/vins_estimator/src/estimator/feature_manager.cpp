@@ -273,6 +273,9 @@ bool FeatureManager::solvePoseByPnP(Eigen::Matrix3d &R, Eigen::Vector3d &P,
     return true;
 }
 
+/*
+* 3D-2D特征点约束求解相机位姿
+*/
 void FeatureManager::initFramePoseByPnP(int frameCnt, Vector3d Ps[], Matrix3d Rs[], Vector3d tic[], Matrix3d ric[])
 {
 
@@ -329,14 +332,14 @@ void FeatureManager::triangulate(int frameCnt, Vector3d Ps[], Matrix3d Rs[], Vec
             int imu_i = it_per_id.start_frame;
             Eigen::Matrix<double, 3, 4> leftPose;
             Eigen::Vector3d t0 = Ps[imu_i] + Rs[imu_i] * tic[0];
-            Eigen::Matrix3d R0 = Rs[imu_i] * ric[0];
+            Eigen::Matrix3d R0 = Rs[imu_i] * ric[0];//找到这个点被第一次观测到的的图像的左图　R t
             leftPose.leftCols<3>() = R0.transpose();
             leftPose.rightCols<1>() = -R0.transpose() * t0;
             //cout << "left pose " << leftPose << endl;
 
             Eigen::Matrix<double, 3, 4> rightPose;
             Eigen::Vector3d t1 = Ps[imu_i] + Rs[imu_i] * tic[1];
-            Eigen::Matrix3d R1 = Rs[imu_i] * ric[1];
+            Eigen::Matrix3d R1 = Rs[imu_i] * ric[1];//找到这个点被第一次观测到的的图像的右图　R t
             rightPose.leftCols<3>() = R1.transpose();
             rightPose.rightCols<1>() = -R1.transpose() * t1;
             //cout << "right pose " << rightPose << endl;
@@ -350,7 +353,7 @@ void FeatureManager::triangulate(int frameCnt, Vector3d Ps[], Matrix3d Rs[], Vec
 
             triangulatePoint(leftPose, rightPose, point0, point1, point3d);
             Eigen::Vector3d localPoint;
-            localPoint = leftPose.leftCols<3>() * point3d + leftPose.rightCols<1>();
+            localPoint = leftPose.leftCols<3>() * point3d + leftPose.rightCols<1>();//这求得local_pose是个啥，没看明白
             double depth = localPoint.z();
             if (depth > 0)
                 it_per_id.estimated_depth = depth;

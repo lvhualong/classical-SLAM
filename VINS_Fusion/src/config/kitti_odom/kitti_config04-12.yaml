@@ -7,7 +7,7 @@ num_of_cam: 2
 imu_topic: ""
 image0_topic: ""
 image1_topic: ""
-output_path: "/home/tony-ws1/output/"
+output_path: "/home/ubuntu/Documents/paper/kitti"
 
 cam0_calib: "cam04-12.yaml"
 cam1_calib: "cam04-12.yaml"
@@ -49,7 +49,7 @@ flow_back: 1            # perform forward and backward optical flow to improve f
 
 #optimization parameters
 max_solver_time: 0.08  # max solver itration time (s), to guarantee real time
-max_num_iterations: 10   # max solver itrations, to guarantee real time
+max_num_iterations: 15   # max solver itrations, to guarantee real time
 keyframe_parallax: 15 # keyframe selection threshold (pixel)
 
 #imu parameters       The more accurate parameters you provide, the better performance

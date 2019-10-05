@@ -315,7 +315,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
 
         Eigen::Matrix<double, 7, 1> xyz_uv_velocity;
         xyz_uv_velocity << x, y, z, p_u, p_v, velocity_x, velocity_y;
-        featureFrame[feature_id].emplace_back(camera_id,  xyz_uv_velocity);
+        featureFrame[feature_id].emplace_back(camera_id,  xyz_uv_velocity);//左图中每一个追踪的特征点
     }
     //打包右图的特征点 (左图camera_id=0 右图camera_id=1)
     if (!_img1.empty() && stereo_cam)
@@ -337,7 +337,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
 
             Eigen::Matrix<double, 7, 1> xyz_uv_velocity;
             xyz_uv_velocity << x, y, z, p_u, p_v, velocity_x, velocity_y;
-            featureFrame[feature_id].emplace_back(camera_id,  xyz_uv_velocity);
+            featureFrame[feature_id].emplace_back(camera_id,  xyz_uv_velocity);//右图中每一个追踪的特征点
         }
     }
 

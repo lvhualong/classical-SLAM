@@ -39,7 +39,7 @@ void registerPub(ros::NodeHandle &n)
     pub_margin_cloud = n.advertise<sensor_msgs::PointCloud>("margin_cloud", 1000);
     pub_key_poses = n.advertise<visualization_msgs::Marker>("key_poses", 1000);
     pub_camera_pose = n.advertise<nav_msgs::Odometry>("camera_pose", 1000);
-    pub_camera_poseStamped = n.advertise<geometry_msgs::PoseStamped>("camera_poseStamped", 1000);  //add new test geometry_msgs/PoseStamped
+    pub_camera_poseStamped = n.advertise<geometry_msgs::PoseStamped>("camera_poseStamped", 1000); //add new test geometry_msgs/PoseStamped
 
     pub_camera_pose_visual = n.advertise<visualization_msgs::MarkerArray>("camera_pose_visual", 1000);
     pub_keyframe_pose = n.advertise<nav_msgs::Odometry>("keyframe_pose", 1000);
@@ -89,10 +89,10 @@ void printStatistics(const Estimator &estimator, double t)
             eigen_T.block<3, 1>(0, 3) = estimator.tic[i];
             cv::Mat cv_T;
             cv::eigen2cv(eigen_T, cv_T);
-            if(i == 0)
-                fs << "body_T_cam0" << cv_T ;
+            if (i == 0)
+                fs << "body_T_cam0" << cv_T;
             else
-                fs << "body_T_cam1" << cv_T ;
+                fs << "body_T_cam1" << cv_T;
         }
         fs.release();
     }
@@ -145,24 +145,43 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         // write result to file
         ofstream foutC(VINS_RESULT_PATH, ios::app); //定义从内存到文件的流
         foutC.setf(ios::fixed, ios::floatfield);
-        foutC.precision(0);
-        foutC << header.stamp.toSec() * 1e9 << ",";     //时间
+        // foutC.precision(0);
+        // foutC << header.stamp.toSec() * 1e9 << ",";     //时间
+        // foutC.precision(5);
+        // foutC << estimator.Ps[WINDOW_SIZE].x() << ","   //当前帧P.x
+        //       << estimator.Ps[WINDOW_SIZE].y() << ","   //当前帧P.y
+        //       << estimator.Ps[WINDOW_SIZE].z() << ","   //当前帧P.z
+        //       << tmp_Q.w() << ","   //当前帧的四元素 w
+        //       << tmp_Q.x() << ","   //当前帧的四元素 x
+        //       << tmp_Q.y() << ","   //当前帧的四元素 y
+        //       << tmp_Q.z() << ","   //当前帧的四元素 z
+        //       << estimator.Vs[WINDOW_SIZE].x() << ","  //当前帧的速度
+        //       << estimator.Vs[WINDOW_SIZE].y() << ","
+        //       << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+
+        /*  save as TUM: timestamp tx ty tz qx qy qz qw  */
+        foutC.precision(9);
+        // foutC << header.stamp.toSec() * 1e9 << " "; //时间 纳秒单位
+        foutC << header.stamp.toSec() << " "; //时间 秒单位
+        // const int TIMESTAMP_OFFSET = 5;
+        // string stampNsec = to_string(header.stamp.toSec()); //去掉字符串的前５位
+        // foutC << stampNsec.substr(TIMESTAMP_OFFSET, stampNsec.size()-TIMESTAMP_OFFSET) << " "; 
+
         foutC.precision(5);
-        foutC << estimator.Ps[WINDOW_SIZE].x() << ","   //当前帧P.x
-              << estimator.Ps[WINDOW_SIZE].y() << ","   //当前帧P.y
-              << estimator.Ps[WINDOW_SIZE].z() << ","   //当前帧P.z
-              << tmp_Q.w() << ","   //当前帧的四元素 w
-              << tmp_Q.x() << ","   //当前帧的四元素 x
-              << tmp_Q.y() << ","   //当前帧的四元素 y
-              << tmp_Q.z() << ","   //当前帧的四元素 z
-              << estimator.Vs[WINDOW_SIZE].x() << ","  //当前帧的速度
-              << estimator.Vs[WINDOW_SIZE].y() << ","
-              << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+        foutC << estimator.Ps[WINDOW_SIZE].x() << " " //当前帧P.x
+              << estimator.Ps[WINDOW_SIZE].y() << " " //当前帧P.y
+              << estimator.Ps[WINDOW_SIZE].z() << " " //当前帧P.z
+              << tmp_Q.x() << " "                     //当前帧的四元素 x
+              << tmp_Q.y() << " "                     //当前帧的四元素 y
+              << tmp_Q.z() << " "                     //当前帧的四元素 z
+              << tmp_Q.w()                            //当前帧的四元素 w
+              << endl;
+
         foutC.close();
         //将当前帧的数据可视化一下
-       Eigen::Vector3d tmp_T = estimator.Ps[WINDOW_SIZE];
-       printf("time: %f,  translation: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
-                                                         tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
+        Eigen::Vector3d tmp_T = estimator.Ps[WINDOW_SIZE];
+        printf("time: %f,  translation: %f %f %f q: %f %f %f %f\n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
+               tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
     }
 }
 
@@ -232,12 +251,12 @@ void pubCameraPose(const Estimator &estimator, const std_msgs::Header &header)
         poseStamped.pose.orientation.z = odometry.pose.pose.orientation.z;
         poseStamped.pose.position.x = odometry.pose.pose.position.x;
         poseStamped.pose.position.y = odometry.pose.pose.position.y;
-        poseStamped.pose.position.z = odometry.pose.pose.position.z;        
+        poseStamped.pose.position.z = odometry.pose.pose.position.z;
         pub_camera_poseStamped.publish(poseStamped);
 
         cameraposevisual.reset();
         cameraposevisual.add_pose(P, R);
-        if(STEREO)
+        if (STEREO)
         {
             Vector3d P = estimator.Ps[i] + estimator.Rs[i] * estimator.tic[1];
             Quaterniond R = Quaterniond(estimator.Rs[i] * estimator.ric[1]);
@@ -247,13 +266,11 @@ void pubCameraPose(const Estimator &estimator, const std_msgs::Header &header)
     }
 }
 
-
 void pubPointCloud(const Estimator &estimator, const std_msgs::Header &header)
 {
     sensor_msgs::PointCloud point_cloud, loop_point_cloud;
     point_cloud.header = header;
     loop_point_cloud.header = header;
-
 
     for (auto &it_per_id : estimator.f_manager.feature)
     {
@@ -275,13 +292,12 @@ void pubPointCloud(const Estimator &estimator, const std_msgs::Header &header)
     }
     pub_point_cloud.publish(point_cloud);
 
-
     // pub margined potin
     sensor_msgs::PointCloud margin_cloud;
     margin_cloud.header = header;
 
     for (auto &it_per_id : estimator.f_manager.feature)
-    { 
+    {
         int used_num;
         used_num = it_per_id.feature_per_frame.size();
         if (!(used_num >= 2 && it_per_id.start_frame < WINDOW_SIZE - 2))
@@ -289,8 +305,7 @@ void pubPointCloud(const Estimator &estimator, const std_msgs::Header &header)
         //if (it_per_id->start_frame > WINDOW_SIZE * 3.0 / 4.0 || it_per_id->solve_flag != 1)
         //        continue;
 
-        if (it_per_id.start_frame == 0 && it_per_id.feature_per_frame.size() <= 2 
-            && it_per_id.solve_flag == 1 )
+        if (it_per_id.start_frame == 0 && it_per_id.feature_per_frame.size() <= 2 && it_per_id.solve_flag == 1)
         {
             int imu_i = it_per_id.start_frame;
             Vector3d pts_i = it_per_id.feature_per_frame[0].point * it_per_id.estimated_depth;
@@ -306,10 +321,9 @@ void pubPointCloud(const Estimator &estimator, const std_msgs::Header &header)
     pub_margin_cloud.publish(margin_cloud);
 }
 
-
 void pubTF(const Estimator &estimator, const std_msgs::Header &header)
 {
-    if( estimator.solver_flag != Estimator::SolverFlag::NON_LINEAR)
+    if (estimator.solver_flag != Estimator::SolverFlag::NON_LINEAR)
         return;
     static tf::TransformBroadcaster br;
     tf::Transform transform;
@@ -331,7 +345,7 @@ void pubTF(const Estimator &estimator, const std_msgs::Header &header)
     br.sendTransform(tf::StampedTransform(transform, header.stamp, "world", "body"));
 
     // camera frame
-    transform.setOrigin(tf::Vector3(estimator.tic[0].x(),  // camera-->body的平移和旋转
+    transform.setOrigin(tf::Vector3(estimator.tic[0].x(), // camera-->body的平移和旋转
                                     estimator.tic[0].y(),
                                     estimator.tic[0].z()));
     q.setW(Quaterniond(estimator.ric[0]).w());
@@ -341,7 +355,6 @@ void pubTF(const Estimator &estimator, const std_msgs::Header &header)
     transform.setRotation(q);
     br.sendTransform(tf::StampedTransform(transform, header.stamp, "body", "camera"));
 
-    
     nav_msgs::Odometry odometry;
     odometry.header = header;
     odometry.header.frame_id = "world";
@@ -354,7 +367,6 @@ void pubTF(const Estimator &estimator, const std_msgs::Header &header)
     odometry.pose.pose.orientation.z = tmp_q.z();
     odometry.pose.pose.orientation.w = tmp_q.w();
     pub_extrinsic.publish(odometry);
-
 }
 
 void pubKeyframe(const Estimator &estimator)
@@ -381,7 +393,6 @@ void pubKeyframe(const Estimator &estimator)
 
         pub_keyframe_pose.publish(odometry);
 
-
         sensor_msgs::PointCloud point_cloud;
         point_cloud.header.stamp = ros::Time(estimator.Headers[WINDOW_SIZE - 2]);
         point_cloud.header.frame_id = "world";
@@ -389,13 +400,13 @@ void pubKeyframe(const Estimator &estimator)
         {
             int frame_size = it_per_id.feature_per_frame.size();
             //首帧＜lase second帧  最后一帧观测帧>last second帧
-            if(it_per_id.start_frame < WINDOW_SIZE - 2 && it_per_id.start_frame + frame_size - 1 >= WINDOW_SIZE - 2 && it_per_id.solve_flag == 1)
+            if (it_per_id.start_frame < WINDOW_SIZE - 2 && it_per_id.start_frame + frame_size - 1 >= WINDOW_SIZE - 2 && it_per_id.solve_flag == 1)
             {
 
                 int imu_i = it_per_id.start_frame;
-                Vector3d pts_i = it_per_id.feature_per_frame[0].point * it_per_id.estimated_depth; //camera下 3D point
+                Vector3d pts_i = it_per_id.feature_per_frame[0].point * it_per_id.estimated_depth;     //camera下 3D point
                 Vector3d w_pts_i = estimator.Rs[imu_i] * (estimator.ric[0] * pts_i + estimator.tic[0]) //imu坐标系下的 3D point
-                                      + estimator.Ps[imu_i]; // world坐标系下的位置
+                                   + estimator.Ps[imu_i];                                              // world坐标系下的位置
                 geometry_msgs::Point32 p;
                 p.x = w_pts_i(0);
                 p.y = w_pts_i(1);
@@ -411,7 +422,6 @@ void pubKeyframe(const Estimator &estimator)
                 p_2d.values.push_back(it_per_id.feature_id);
                 point_cloud.channels.push_back(p_2d);
             }
-
         }
         pub_keyframe_point.publish(point_cloud);
     }

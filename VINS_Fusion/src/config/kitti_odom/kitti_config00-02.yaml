@@ -7,7 +7,7 @@ num_of_cam: 2
 imu_topic: ""
 image0_topic: ""
 image1_topic: ""
-output_path: "/home/tony-ws1/output/"
+output_path: "/home/ubuntu/Documents/paper/kitti"
 
 cam0_calib: "cam00-02.yaml"
 cam1_calib: "cam00-02.yaml"
@@ -44,12 +44,12 @@ max_cnt: 200            # max feature number in feature tracking
 min_dist: 30            # min distance between two features 
 freq: 10                # frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image 
 F_threshold: 1.0        # ransac threshold (pixel)
-show_track: 1           # publish tracking image as topic
+show_track: 0           # publish tracking image as topic　[显示追踪的过程]
 flow_back: 1            # perform forward and backward optical flow to improve feature tracking accuracy
 
 #optimization parameters
 max_solver_time: 0.08  # max solver itration time (s), to guarantee real time
-max_num_iterations: 10   # max solver itrations, to guarantee real time
+max_num_iterations: 15   # max solver itrations, to guarantee real time [注意有时候迭代的次数都没有收敛　默认10 15效果可能会更好]
 keyframe_parallax: 15 # keyframe selection threshold (pixel)
 
 #imu parameters       The more accurate parameters you provide, the better performance
