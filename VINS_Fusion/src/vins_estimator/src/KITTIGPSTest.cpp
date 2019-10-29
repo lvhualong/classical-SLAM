@@ -20,6 +20,8 @@
 #include "estimator/estimator.h"
 #include "utility/visualization.h"
 
+// 这个文件仅仅是把　VINS-stereo 估计的结果和GPS数据都发布成ROS topic
+// 算法中并没有做　VINS-SLAM与GPS的融合
 using namespace std;
 using namespace Eigen;
 
@@ -57,7 +59,7 @@ int main(int argc, char** argv)
 	    ROS_BREAK();
 	    return 0;          
 	}
-	vector<double> imageTimeList;
+	vector<double> imageTimeList;//所以图片左图的时间戳
 	int year, month, day;
 	int hour, minute;
 	double second;
@@ -69,7 +71,7 @@ int main(int argc, char** argv)
 	std::fclose(file);
 
 	// load gps list
-	vector<double> GPSTimeList;
+	vector<double> GPSTimeList;//所有对应的GPS的时间戳
 	{
 		FILE* file;
 		file = std::fopen((dataPath + "oxts/timestamps.txt").c_str() , "r");
@@ -131,7 +133,7 @@ int main(int argc, char** argv)
 			if(GPSFile == NULL){
 			    printf("cannot find file: %s\n", GPSFilePath.c_str());
 			    ROS_BREAK();
-			    return 0;          
+			    return 0;
 			}
 			double lat, lon, alt, roll, pitch, yaw;
 			double vn, ve, vf, vl, vu;

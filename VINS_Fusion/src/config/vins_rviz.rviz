@@ -10,6 +10,7 @@ Panels:
         - /Odometry1/Shape1
         - /Path1
         - /PointCloud1
+        - /PointCloud1/Status1
       Splitter Ratio: 0.5
     Tree Height: 595
   - Class: rviz/Selection
@@ -136,8 +137,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 465.859467
-        Min Value: 23.2996998
+        Max Value: 231.215775
+        Min Value: 166.994904
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -156,7 +157,7 @@ Visualization Manager:
       Queue Size: 1000
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.100000001
+      Size (m): 0.5
       Style: Flat Squares
       Topic: /vins_node/point_cloud
       Unreliable: false
@@ -188,25 +189,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 422.727264
+      Distance: 376.592102
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 12.3936653
-        Y: -3.27306223
-        Z: -8.11378098
+        X: 128.192215
+        Y: 28.8057556
+        Z: 55.2822495
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: -1.19020152
+      Pitch: 0.599797249
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.72854614
+      Yaw: 4.61351728
     Saved: ~
 Window Geometry:
   Displays:
@@ -224,5 +225,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1375
-  X: 1985
+  X: 545
   Y: 24
