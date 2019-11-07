@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ubuntu/coding/classical-SLAM/ORB_SLAM2/ORB-SLAM2/Examples/ROS/devel/setup.sh

@@ -1,8 +1,15 @@
 
+## 基于多传感器融合的框架，from ethz_asl
 asl_msf/*
 
+## 基于mavros px4　消息格式的多传感器融合框架
 ekf2_msf/*
 
-ORB_SLAM2/*
+ekf_pose/*
 
+robot_pose_ekf/*
+## 单目／双目／RGBD的视觉里程计/ ORB_SLAM2
+# ORB_SLAM2/*
+
+## 基于滤波形式的双目＋IMU融合的　vSLAM
 ROVIO/*

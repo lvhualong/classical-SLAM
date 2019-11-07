@@ -8,9 +8,8 @@ Panels:
         - /wordl-Axes1
         - /body-Axes1
         - /Odometry1/Shape1
-        - /Path1
-        - /PointCloud1
-        - /PointCloud1/Status1
+        - /Pose1
+        - /PointStamped1
       Splitter Ratio: 0.5
     Tree Height: 595
   - Class: rviz/Selection
@@ -137,8 +136,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 231.215775
-        Min Value: 166.994904
+        Max Value: 513.487732
+        Min Value: 311.142548
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -163,6 +162,31 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Axes Length: 10
+      Axes Radius: 1
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.300000012
+      Head Radius: 0.100000001
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.0500000007
+      Shape: Axes
+      Topic: /gps_pose
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/PointStamped
+      Color: 204; 41; 204
+      Enabled: true
+      History Length: 1
+      Name: PointStamped
+      Radius: 5
+      Topic: /gps_point
+      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
@@ -189,25 +213,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 376.592102
+      Distance: 192.878677
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 128.192215
-        Y: 28.8057556
-        Z: 55.2822495
-      Focal Shape Fixed Size: true
+        X: 19.4108753
+        Y: -19.1301422
+        Z: 14.3909712
+      Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.599797249
+      Pitch: -1.01979673
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.61351728
+      Yaw: 4.6604085
     Saved: ~
 Window Geometry:
   Displays:
@@ -225,5 +249,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1375
-  X: 545
+  X: 1985
   Y: 24

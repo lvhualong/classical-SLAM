@@ -1,0 +1,20 @@
+<launch>
+
+	<!-- rosbag play  使用回放bag的方式来测试ORB-SLAM -->
+	
+	<node pkg="rosbag" type="play" name="play" args=" --pause /home/hualong/ssd/datasets/TJU-stereo/color720p.bag" output="screen" >
+   </node>
+
+
+
+	<!-- rviz node  查看 ORB-SLAM tracking and mapping
+	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find ORB_SLAM)/Data/rviz.rviz" output="log">
+   </node> -->
+
+	<!-- ORB-SLAM node  根据输入的单目图像帧序列，追踪相机位姿，并构建稀疏 关键点地图 -->
+	<!-- cwd="node" 参数让node 与工程同目录，这样可以保证KeyFrameTrajectory.txt 输出在工程目录下 -->
+ 	<node pkg="ORB_SLAM2" type="mynteye_mono" name="mynteye_mono"  args="$(find ORB_SLAM)/../ORBvoc/ORBvoc.txt  $(find ORB_SLAM2)/config/mono/mynteye_d_mono-HD.yaml /mynteye/left/image_color" cwd="node" output="screen">
+   </node>
+
+
+</launch>

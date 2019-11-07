@@ -9,8 +9,8 @@ imu_topic: "/mynteye/imu/data_raw"
 image0_topic: "/mynteye/left/image_color"
 output_path:  "/home/ubuntu/Documents/paper/mynt"
 
-cam0_calib: "left_equ.yaml"
-#cam0_calib: "left_pinhole.yaml"
+# cam0_calib: "left_equ.yaml"
+cam0_calib: "left_pinhole.yaml"
 #cam0_calib: "left_mei.yaml"
 image_width: 640 
 image_height: 480

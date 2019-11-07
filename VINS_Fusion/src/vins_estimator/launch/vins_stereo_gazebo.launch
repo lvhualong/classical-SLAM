@@ -2,15 +2,17 @@
 
 
     <!-- camera-plugin   fcu ==== camera-link   先绕yaw转-90度，再绕roll轴转-90度 (顺时针) -->
-     <node pkg="tf" type="static_transform_publisher" name="tf_MAVROS_VINS"
+     <!-- <node pkg="tf" type="static_transform_publisher" name="tf_MAVROS_VINS"
           args="0 0 0 0 0 0  world local_origin 50"
-     />  
-
-    <node name="vins_node" pkg="vins_fusion" type="vins_node" output="screen" 
-    args="$(find vins_fusion)/../config/gazebo/vins_stereo_config.yaml" />
+     />   -->
 
 
-    <!-- rviz -->
+  <!-- rviz -->
     <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find vins_fusion)/../config/vins_rviz_config.rviz" />
+
+    <node name="vins_node" pkg="vins_fusion" type="vins_node" output="screen" args="$(find vins_fusion)/../config/gazebo/gazebo_stereo_config.yaml" />
+
+
+
 
 </launch>
