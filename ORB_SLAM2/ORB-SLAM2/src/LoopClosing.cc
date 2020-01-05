@@ -110,7 +110,6 @@ bool LoopClosing::CheckNewKeyFrames()
 */
 bool LoopClosing::DetectLoop()
 {
-    // return false;// disabel the loop_close
     {
         unique_lock<mutex> lock(mMutexLoopQueue);
         mpCurrentKF = mlpLoopKeyFrameQueue.front();
@@ -133,6 +132,7 @@ bool LoopClosing::DetectLoop()
     const vector<KeyFrame *> vpConnectedKeyFrames = mpCurrentKF->GetVectorCovisibleKeyFrames();
     const DBoW2::BowVector &CurrentBowVec = mpCurrentKF->mBowVec;
     float minScore = 1;
+    // 循环每个共视关键帧  计算每个共视关键帧与当前待检测回环关键帧之间的BOW得分  并得到其中最小的得分
     for (size_t i = 0; i < vpConnectedKeyFrames.size(); i++)
     {
         KeyFrame *pKF = vpConnectedKeyFrames[i];
@@ -144,6 +144,7 @@ bool LoopClosing::DetectLoop()
 
         if (score < minScore)
             minScore = score;
+        // 找到跟currentKF相连帧的最小得分
     }
 
     // Query the database imposing the minimum score
@@ -236,7 +237,7 @@ bool LoopClosing::DetectLoop()
     return false;
 }
 
-/
+//
 bool LoopClosing::ComputeSim3()
 {
     // For each consistent loop candidate we try to compute a Sim3

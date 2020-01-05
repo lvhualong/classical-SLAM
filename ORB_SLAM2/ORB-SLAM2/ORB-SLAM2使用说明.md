@@ -65,6 +65,14 @@ ORB-SLAM2提供的build_ros.sh采用的rosbuild的编译方式，
 disable LC 　       　LoopClosing.cc中，　LoopClosing::DetectLoop()函数　return false;// disabel the loop_close
 disable recolication Tracking.cc中　Tracking::Relocalization()函数   return false ; // disable the Relocalization;
 
+**直接关闭**
+
+```c++
+// system.cc中
+// mptLoopClosing = new thread(&ORB_SLAM2::LoopClosing::Run, mpLoopCloser);//关闭回环检测的线程
+
+```
+
 ## ORB-SLAM2 使用与测试说明
 
 **当修改ORB-SLAM2的代码后，在ORB-SLAM2的根目录 /build cmake.. make 更新ORB-SLAM2的库**

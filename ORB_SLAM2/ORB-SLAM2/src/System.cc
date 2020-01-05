@@ -103,7 +103,7 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
 
     //Initialize the Loop Closing thread and launch 关闭回环检测　注释掉了这六行
     mpLoopCloser = new LoopClosing(mpMap, mpKeyFrameDatabase, mpVocabulary, mSensor!=MONOCULAR);
-    mptLoopClosing = new thread(&ORB_SLAM2::LoopClosing::Run, mpLoopCloser);
+    mptLoopClosing = new thread(&ORB_SLAM2::LoopClosing::Run, mpLoopCloser);//关闭回环检测的线程
  
     //Initialize the Viewer thread and launch
     if(bUseViewer)
@@ -238,6 +238,8 @@ cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp)
     // Check mode change
     {
         unique_lock<mutex> lock(mMutexMode);
+        // cout << "mbActivateLocalizationMode: " << mbActivateLocalizationMode << endl;
+        // cout << "mbDeactivateLocalizationMode: " << mbDeactivateLocalizationMode << endl;
         if(mbActivateLocalizationMode)
         {
             mpLocalMapper->RequestStop();
@@ -431,11 +433,11 @@ void System::SaveKeyFrameTrajectoryTUM(const string &filename)
 void System::SaveTrajectoryKITTI(const string &filename)
 {
     cout << endl << "Saving camera trajectory to " << filename << " ..." << endl;
-    if(mSensor==MONOCULAR)
-    {
-        cerr << "ERROR: SaveTrajectoryKITTI cannot be used for monocular." << endl;
-        return;
-    }
+    // if(mSensor==MONOCULAR)
+    // {
+    //     cerr << "ERROR: SaveTrajectoryKITTI cannot be used for monocular." << endl;
+    //     return;
+    // }
 
     vector<KeyFrame*> vpKFs = mpMap->GetAllKeyFrames();
     sort(vpKFs.begin(),vpKFs.end(),KeyFrame::lId);
