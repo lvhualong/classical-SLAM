@@ -11,7 +11,10 @@ asl_msf/devel
 ## 基于mavros px4　消息格式的多传感器融合框架
 ekf2_msf/*
 
-ekf_pose/*
+# ekf_pose/*
+ekf_pose/build
+ekf_pose/devel
+ekf_pose/.catkin_workspace
 
 robot_pose_ekf/*
 ## 单目／双目／RGBD的视觉里程计/ ORB_SLAM2
