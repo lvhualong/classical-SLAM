@@ -20,9 +20,18 @@ ekf_pose/build
 ekf_pose/devel
 ekf_pose/.catkin_workspace
 
-robot_pose_ekf/*
+# robot_pose_ekf
+robot_pose_ekf/.vscode
+robot_pose_ekf/build
+robot_pose_ekf/devel
+
 ## 单目／双目／RGBD的视觉里程计/ ORB_SLAM2
 # ORB_SLAM2/*
 
 ## 基于滤波形式的双目＋IMU融合的　vSLAM
-ROVIO/*
+# ROVIO/*
+ROVIO/.catkin_tools
+ROVIO/.vscode
+ROVIO/build
+ROVIO/devel
+ROVIO/logs

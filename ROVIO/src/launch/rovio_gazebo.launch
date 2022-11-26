@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<launch>
+  <node pkg="rovio" type="rovio_node" name="rovio" output="screen">
+  <param name="filter_config" value="$(find rovio)/cfg/rovio.info"/>
+  <param name="camera0_config" value="$(find rovio)/cfg/gazebo_stereo_0.yaml"/>
+  <param name="camera1_config" value="$(find rovio)/cfg/gazebo_stereo_1.yaml"/>
+
+  <remap from="cam0/image_raw" to="/stereo/left/image_raw"/>
+  <remap from="cam1/image_raw" to="/stereo/right/image_raw"/>
+  <remap from="imu0" to="/mavros/imu/data"/>
+  </node>
+
+<node pkg="rviz" type="rviz" name="visiualization" args="-d $(find rovio)/cfg/rviz_config.rviz" output="log" />
+  <!-- rosbag  play MH_01_easy.bag  -->
+</launch>
