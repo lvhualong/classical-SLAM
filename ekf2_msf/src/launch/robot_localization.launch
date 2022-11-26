@@ -1,0 +1,26 @@
+<launch>
+
+  <node pkg="eskf" name="point_pose2odometry" type="point_pose2odometry" output="screen">
+    <remap from="global_point" to="/leica/position"/>
+  </node>
+
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <rosparam command="load" file="$(find eskf)/config/localization.yaml" />
+
+    <param name="frequency" value="30"/>
+    <param name="sensor_timeout" value="0.1"/>
+    <param name="two_d_mode" value="false"/>
+
+    <param name="map_frame" value="map"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="base_link_frame" value="base_link"/>
+    <param name="world_frame" value="world"/>
+
+    <param name="transform_time_offset" value="0.0"/>
+    <param name="transform_timeout" value="0.0"/>
+
+    <param name="imu0" value="/imu0"/>
+    <param name="odom0" value="/global_point"/>
+  </node> -->
+
+</launch>

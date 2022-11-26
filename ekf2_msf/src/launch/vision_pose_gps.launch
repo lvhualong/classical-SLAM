@@ -1,0 +1,72 @@
+<launch>
+  <!-- Name of the node -->
+  <arg name="eskf_node" default="eskf"/>
+
+  <!-- IMU topic to use -->
+  <arg name="imu_topic" default="/mavros/imu/data"/>
+
+  <!-- MAG topic to use -->
+  <arg name="mag_topic" default="/mavros/imu/mag"/>
+
+  <!-- VISION topic to use -->
+  <arg name="vision_topic" default="/svo/pose"/>
+
+  <!-- GPS topic to use -->
+  <arg name="gps_topic" default="/mavros/global_position/local"/>
+
+  <!-- OPTICAL FLOW topic to use -->
+  <arg name="optical_flow_topic" default="/mavros/px4flow/raw/optical_flow_rad"/>
+
+  <!-- EXTENDED STATE topic to use -->
+  <arg name="extended_state_topic" default="/mavros/extended_state"/>
+
+  <!-- RANGEFINDER topic to use -->
+  <arg name="rangefinder_topic" default="/mavros/distance_sensor/hrlv_ez4_pub"/>
+
+  <!-- 
+    各种话题的数据类型:
+      IMU         -> sensor_msgs::Imu
+      MAG         -> sensor_msgs::MagneticField 磁力计
+      vision_pose -> geometry_msgs::PoseWithCovarianceStamped 视觉vSLAM
+      GPS         -> nav_msgs::Odometry  global_position
+      optical_flow-> mavros_msgs::OpticalFlowRad
+      rangefinder -> sensor_msgs::Range 测距仪
+      
+      extended_state->　mavros_msgs::ExtendedState　检测是否着陆
+
+
+
+   -->
+
+  <node pkg="eskf" name="$(arg eskf_node)" type="eskf" output="screen">
+    <remap from="~imu" to="$(arg imu_topic)"/>
+    <remap from="~vision" to="$(arg vision_topic)"/>
+    <remap from="~gps" to="$(arg gps_topic)"/>
+    <!-- <remap from="~optical_flow" to="$(arg optical_flow_topic)"/> -->
+    <!-- <remap from="~mag" to="$(arg mag_topic)"/> -->
+    <!-- <remap from="~extended_state" to="$(arg extended_state_topic)"/> -->
+    <!-- <remap from="~rangefinder" to="$(arg rangefinder_topic)"/> -->
+
+    <param name="fusion_mask" value="56"  type="int"/>
+    <!-- <param name="fusion_mask" value="47"  type="int"/> -->
+    <!-- 
+     1 - vision position. 
+     2 - vision yaw. 
+     4 - vision height. 
+     8 - gps position. 
+     16 - gps velocity
+     32 - gps height.
+     64 - mag inhibit. 
+     128 - optical flow. 
+     256 - rangefinder height.
+     512 - mag heading.
+     -->
+
+     <param name="publish_rate" value="10" type="int"/>
+  </node>
+
+  <node pkg="eskf" name="point_pose2odometry" type="point_pose2odometry" output="screen" >
+    <remap from="global_point" to="/leica/position"/>
+  </node>
+
+</launch>

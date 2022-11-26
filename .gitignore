@@ -9,7 +9,11 @@ asl_msf/devel
 
 
 ## 基于mavros px4　消息格式的多传感器融合框架
-ekf2_msf/*
+# ekf2_msf
+ekf2_msf/.vscode
+ekf2_msf/build
+ekf2_msf/devel
+ekf2_msf/.catkin_workspace
 
 # ekf_pose/*
 ekf_pose/build
