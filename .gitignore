@@ -1,6 +1,12 @@
 
 ## 基于多传感器融合的框架，from ethz_asl
-asl_msf/*
+# asl_msf
+asl_msf/.vscode
+asl_msf/.catkin_tools
+asl_msf/.catkin_workspace
+asl_msf/build
+asl_msf/devel
+
 
 ## 基于mavros px4　消息格式的多传感器融合框架
 ekf2_msf/*

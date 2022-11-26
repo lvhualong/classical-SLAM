@@ -1,0 +1,13 @@
+#the key to identify itself under potentially different listeners
+string key
+#the path to the tfnetwork protobuff file (*.pb)
+string tfnetworkpath
+string tfnetworkweights
+
+#the evaluation frequency
+int64 evalfrequency
+
+#the maximal memory length
+int64 maxmemory
+---
+bool success
