@@ -246,7 +246,7 @@ void extrinsic_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
     m_process.unlock();
 }
 
-// measurement_process
+// measurement_process 主线程
 // image point pose数据对齐 ==> 选关键帧 ==>
 void process()
 {
